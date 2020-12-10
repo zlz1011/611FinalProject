@@ -6,11 +6,6 @@ import javax.swing.*;
 
 public class WelcomeFrame extends JFrame {
 
-	
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
 	private JTextField userText;
 	private JTextField passwordText;
 	private JPanel SignInPanel;
@@ -18,6 +13,7 @@ public class WelcomeFrame extends JFrame {
 	private JButton SignInButton;
 	private JButton SignUpButton;
 	private JButton exitButton;
+	private JButton managerButton;
 
 	public WelcomeFrame() {
 		this.initComponents();
@@ -29,6 +25,7 @@ public class WelcomeFrame extends JFrame {
 		this.setSignInButton(new JButton("Sign In"));
 		this.setSignOnButton(new JButton("Sign Up"));
 		this.setExitButton(new JButton("Exit"));
+		this.setManagerButton(new JButton("Manager Click Here"));
 		this.setSignInPanel(new JPanel());
 		this.setSignUpPanel(new JPanel());
 
@@ -43,7 +40,8 @@ public class WelcomeFrame extends JFrame {
 		this.add(this.SignUpPanel);
 		// add listenners
 		this.SignInButton.addActionListener(new SignInListener());
-
+		this.SignUpButton.addActionListener(new SignOnListener());
+		this.exitButton.addActionListener(new ExitListener());
 	}
 
 	public JPanel getSignInPanel() {
@@ -78,7 +76,7 @@ public class WelcomeFrame extends JFrame {
 		this.SignUpPanel = SignUpPanel;
 		this.SignUpPanel.setBounds(480, 500, 200, 100);
 
-		JLabel remindText = new JLabel("Not Enrolled?  Sign Up Now: ");
+		JLabel remindText = new JLabel("Not Enrolled?  Sign Up and Open Your Account Now: ");
 		remindText.setForeground(Color.blue);
 		this.SignUpPanel.add(remindText);
 		this.SignUpPanel.add(this.SignUpButton);
@@ -106,7 +104,6 @@ public class WelcomeFrame extends JFrame {
 
 	public void setExitButton(JButton exitButton) {
 		this.exitButton = exitButton;
-		this.exitButton.addActionListener(new ExitListener());
 	}
 
 	public JTextField getUserText() {
@@ -131,6 +128,14 @@ public class WelcomeFrame extends JFrame {
 
 	public void setPasswordText(JTextField passwordText) {
 		this.passwordText = passwordText;
+	}
+
+	public JButton getManagerButton() {
+		return managerButton;
+	}
+
+	public void setManagerButton(JButton managerButton) {
+		this.managerButton = managerButton;
 	}
 
 }

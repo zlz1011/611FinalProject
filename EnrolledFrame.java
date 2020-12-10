@@ -1,7 +1,12 @@
+import java.awt.Color;
+import java.awt.Frame;
+import java.awt.GridLayout;
+
 import javax.swing.*;
 
 public class EnrolledFrame extends JFrame{
 
+	private JPanel [][] panels;
 	private JButton CheckingButton;
 	private JButton SavingButton;
 	private JButton LoansButton;
@@ -10,18 +15,66 @@ public class EnrolledFrame extends JFrame{
 	private JButton TransactionButton;
 	private JButton StockButton;
 	
-	
 	public EnrolledFrame() {
 		this.initcomp();
 	}
 	
 	public void initcomp() {
+		this.setPanels(new JPanel[7][4]);
+		
 		this.setCheckingButton(new JButton("Checking Account"));
+		this.CheckingButton.setBackground(Color.black);
+		this.CheckingButton.setOpaque(true);
+		this.panels[1][0].add(this.CheckingButton);
+		
 		this.setSavingButton(new JButton("Saving Account"));
-		this.setLoansButton(new JButton("Request Loan"));
+		this.SavingButton.setBackground(Color.black);
+		this.SavingButton.setOpaque(true);
+		this.panels[1][3].add(this.SavingButton);
+		
 		this.setBalanceButton(new JButton("Current Balance"));
+		this.BalanceButton.setBackground(Color.black);
+		this.BalanceButton.setOpaque(true);
+		this.panels[3][0].add(this.BalanceButton);
+		
+		this.setLoansButton(new JButton("Request Loan"));
+		this.LoansButton.setBackground(Color.black);
+		this.LoansButton.setOpaque(true);
+		this.panels[3][3].add(this.LoansButton);
+		
 		this.setTransactionButton(new JButton("Transactions"));
+		this.TransactionButton.setBackground(Color.black);
+		this.TransactionButton.setOpaque(true);
+		this.panels[5][0].add(this.TransactionButton);
+		
 		this.setStockButton(new JButton("StockButton"));
+		this.StockButton.setBackground(Color.black);
+		this.StockButton.setOpaque(true);
+		this.panels[5][3].add(this.StockButton);
+		
+		this.setTitle("You have enrolled your account");
+		this.setLayout(new GridLayout(7,4));
+		// Set frame size to fit the screen
+		this.setExtendedState(Frame.MAXIMIZED_BOTH);
+		this.setLocationRelativeTo(null);
+		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.setVisible(true);
+		
+	}
+	
+	public JPanel[][] getPanels() {
+		return panels;
+	}
+
+	public void setPanels(JPanel[][] panels) {
+		this.panels = panels;
+		for (int i=0; i<this.panels.length; i++) {
+			for (int j=0; j<this.panels[0].length; j++) {
+				this.panels[i][j] = new JPanel();
+				this.panels[i][j].setLayout(new GridLayout(1,1));
+				this.add(this.panels[i][j]);
+			}
+		}
 	}
 
 	public JButton getCheckingButton() {
