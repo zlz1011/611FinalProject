@@ -8,6 +8,7 @@ public class main {
 		//SignOnFrame frame3 = new SignOnFrame();
 		//AccountFrame frame4 = new AccountFrame("Checking");
 		//AccountFrame frame5 = new AccountFrame("Saving");
+		BalanceFrame frame6 = new BalanceFrame();
 	}
 
 }
