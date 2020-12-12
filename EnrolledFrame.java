@@ -47,7 +47,7 @@ public class EnrolledFrame extends JFrame{
 		this.TransactionButton.setOpaque(true);
 		this.panels[5][0].add(this.TransactionButton);
 		
-		this.setStockButton(new JButton("StockButton"));
+		this.setStockButton(new JButton("Stock Market"));
 		this.StockButton.setBackground(Color.black);
 		this.StockButton.setOpaque(true);
 		this.panels[5][3].add(this.StockButton);

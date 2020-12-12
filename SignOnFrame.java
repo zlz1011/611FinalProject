@@ -16,6 +16,8 @@ public class SignOnFrame extends JFrame{
 	private JCheckBox Saving;
 	private JCheckBox Checking;
 	private JButton SignOnButton;
+	private JComboBox<String> Savingcurrency;
+	private JComboBox<String> Checkingcurrency;
 	
 	public SignOnFrame() {
 		this.initcomp();
@@ -32,8 +34,8 @@ public class SignOnFrame extends JFrame{
 		this.setSignOnButton(new JButton("Open Your New Account"));
 		
 		this.setTitle("Register your account here");
-		this.setLayout(new GridLayout(7,2));
-		this.setSize(500,500);
+		this.setLayout(new GridLayout(9,2));
+		this.setSize(400,350);
 		this.setLocationRelativeTo(null);
 		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		this.setComponents();
@@ -104,16 +106,24 @@ public class SignOnFrame extends JFrame{
 	public void setSignOnButton(JButton signOnButton) {
 		SignOnButton = signOnButton;
 	}
+	
+	public JComboBox<String> getSavingCurrency() {
+		return this.Savingcurrency;
+	}
 
+	public void setSavingCurrency(JComboBox<String> currency) {
+		this.Savingcurrency = currency;
+	}
+	
+	public JComboBox<String> getCheckingcurrency() {
+		return Checkingcurrency;
+	}
+
+	public void setCheckingcurrency(JComboBox<String> checkingcurrency) {
+		Checkingcurrency = checkingcurrency;
+	}
 
 	public void setComponents() {
-//		this.SignPanel = signPanel;
-//		
-//		this.SignPanel.setBounds(50,15,400,450);
-//		this.SignPanel.setSize(400,450);
-//		this.SignPanel.setLayout(new GridLayout(3,2));
-//		this.SignPanel.setBackground(Color.white);
-//	
 		
 		JLabel name = new JLabel("Name: ",SwingConstants.RIGHT);
 		this.add(name);
@@ -138,17 +148,22 @@ public class SignOnFrame extends JFrame{
 		this.add(checkingMoney);
 		this.add(this.CheckingDeposit);
 		
-		JLabel reminder = new JLabel("Don't forget the check boxes!", SwingConstants.RIGHT);
-		reminder.setForeground(Color.red);
-		this.add(reminder);
+		String [] currencyName = new String[] {"USD","EUR", "GBP", "CNY", "AUD"};
+		this.setSavingCurrency(new JComboBox<String>(currencyName));
+		this.setCheckingcurrency(new JComboBox<String>(currencyName));
 		
+		JLabel savingCurrency = new JLabel("Saving Deposit Money Type:",SwingConstants.RIGHT);
+		this.add(savingCurrency);
+		this.add(this.Savingcurrency);
+		
+		JLabel checkingCurrency = new JLabel("Checking Deposit Money Type:",SwingConstants.RIGHT);
+		this.add(checkingCurrency);
+		this.add(this.Checkingcurrency);
+		
+		this.add(new JPanel());
 		this.SignOnButton.setForeground(Color.blue);
 		this.add(this.SignOnButton);
 		
-		
 	}
-	
-	
-	
 	
 }

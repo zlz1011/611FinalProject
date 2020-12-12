@@ -5,7 +5,9 @@ public class main {
 		
 		//WelcomeFrame frame = new WelcomeFrame();
 		//EnrolledFrame frame2 = new EnrolledFrame();
-		SignOnFrame frame3 = new SignOnFrame();
+		//SignOnFrame frame3 = new SignOnFrame();
+		//AccountFrame frame4 = new AccountFrame("Checking");
+		//AccountFrame frame5 = new AccountFrame("Saving");
 	}
 
 }
