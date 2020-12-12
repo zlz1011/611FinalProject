@@ -34,7 +34,7 @@ public class WelcomeFrame extends JFrame {
 		// Set frame size to fit the screen
 		this.setExtendedState(Frame.MAXIMIZED_BOTH);
 		this.setLocationRelativeTo(null);
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		this.setVisible(true);
 		this.add(this.SignInPanel);
 		this.add(this.SignUpPanel);
@@ -74,7 +74,7 @@ public class WelcomeFrame extends JFrame {
 
 	public void setSignUpPanel(JPanel SignUpPanel) {
 		this.SignUpPanel = SignUpPanel;
-		this.SignUpPanel.setBounds(480, 500, 200, 100);
+		this.SignUpPanel.setBounds(420, 500, 400, 100);
 
 		JLabel remindText = new JLabel("Not Enrolled?  Sign Up and Open Your Account Now: ");
 		remindText.setForeground(Color.blue);
