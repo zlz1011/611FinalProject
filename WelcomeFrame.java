@@ -1,19 +1,21 @@
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.*;
 
 public class WelcomeFrame extends JFrame {
 
 	private JTextField userText;
-	private JTextField passwordText;
+	private JPasswordField passwordText;
 	private JPanel SignInPanel;
 	private JPanel SignUpPanel;
 	private JButton SignInButton;
 	private JButton SignUpButton;
 	private JButton exitButton;
 	private JButton managerButton;
+	private boolean ifenrolled;
 
 	public WelcomeFrame() {
 		this.initComponents();
@@ -21,13 +23,14 @@ public class WelcomeFrame extends JFrame {
 
 	public void initComponents() {
 		this.setUserText(new JTextField(30));
-		this.setPasswordText(new JTextField(30));
+		this.setPasswordText(new JPasswordField(30));
 		this.setSignInButton(new JButton("Sign In"));
 		this.setSignOnButton(new JButton("Sign Up"));
 		this.setExitButton(new JButton("Exit"));
 		this.setManagerButton(new JButton("Manager Click Here"));
 		this.setSignInPanel(new JPanel());
 		this.setSignUpPanel(new JPanel());
+		this.setIfenrolled(false);
 
 		this.setTitle("Welcome to our CS611 Bank!");
 		this.setLayout(null);
@@ -118,15 +121,11 @@ public class WelcomeFrame extends JFrame {
 		this.userText = userText;
 	}
 
-	public JTextField getPasswordText() {
+	public JPasswordField getPasswordText() {
 		return passwordText;
 	}
-	
-	public String getPassword() {
-		return this.passwordText.getText();
-	}
 
-	public void setPasswordText(JTextField passwordText) {
+	public void setPasswordText(JPasswordField passwordText) {
 		this.passwordText = passwordText;
 	}
 
@@ -138,16 +137,49 @@ public class WelcomeFrame extends JFrame {
 		this.managerButton = managerButton;
 	}
 
-}
-
-class SignInListener implements ActionListener {
-
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
+	public boolean isIfenrolled() {
+		return ifenrolled;
 	}
 
+	public void setIfenrolled(boolean ifenrolled) {
+		this.ifenrolled = ifenrolled;
+		if(this.ifenrolled) {
+			this.dispose();
+		}
+	}
+	
+	class SignInListener implements ActionListener {
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			// TODO Auto-generated method stub
+			String user_name = userText.getText();
+			String password = new String(passwordText.getPassword());
+			
+			ArrayList<String []> read_data = GetData.read(GetData.createFilePath("namePass.txt"), false);
+			
+			for (int i=0; i<read_data.size(); i++) {
+				String [] data = read_data.get(i);
+				
+				JFrame warning = new JFrame();
+				if (user_name.equals(data[0]) && !password.equals(data[1])){
+					JOptionPane.showMessageDialog(warning, "The password is not correct!");
+				}
+				else if (user_name.equals(data[0]) && password.equals(data[1])) {
+					setIfenrolled(true);
+					EnrolledFrame enrolled= new EnrolledFrame(user_name);
+				}
+				else {
+					JOptionPane.showMessageDialog(warning, "There is no such username!");
+				}
+				
+			}
+			
+		}
+
+	}
 }
+
 
 class SignOnListener implements ActionListener {
 

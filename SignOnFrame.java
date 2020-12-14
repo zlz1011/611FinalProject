@@ -219,6 +219,9 @@ public class SignOnFrame extends JFrame{
 			String checking_currency = Checkingcurrency.getItemAt(Checkingcurrency.getSelectedIndex());
 			
 			JFrame warning = new JFrame();
+			if(user_name.contains(" ")) {
+				JOptionPane.showMessageDialog(warning, "Your username cannot have any space!");
+			}
 			if (!pass.equals(repass)) {
 				JOptionPane.showMessageDialog(warning, "The passwords you entered are not same!");
 			}

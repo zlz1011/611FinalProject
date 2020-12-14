@@ -1,4 +1,5 @@
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Frame;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -8,6 +9,7 @@ import javax.swing.*;
 
 public class EnrolledFrame extends JFrame{
 
+	private String user_name;
 	private JPanel [][] panels;
 	private JButton CheckingButton;
 	private JButton SavingButton;
@@ -18,11 +20,28 @@ public class EnrolledFrame extends JFrame{
 	private JButton StockButton;
 	
 	public EnrolledFrame() {
+		this.setUser_name(null);
+		this.initcomp();
+	}
+	
+	public EnrolledFrame(String user_name) {
+		this.setUser_name(user_name);
 		this.initcomp();
 	}
 	
 	public void initcomp() {
 		this.setPanels(new JPanel[7][4]);
+		
+		String welcome_message1 = "Hello!" ;
+		String welcome_message2 = "Mr./Mrs. " + this.user_name;
+		JLabel message1 = new JLabel(welcome_message1,SwingConstants.RIGHT);
+		message1.setFont(new Font("Verdana",Font.PLAIN,24));
+		message1.setForeground(Color.blue);
+		JLabel message2 = new JLabel(welcome_message2,SwingConstants.LEFT);
+		message2.setFont(new Font("Verdana",Font.PLAIN,24));
+		message2.setForeground(Color.blue);
+		this.panels[0][1].add(message1);
+		this.panels[0][2].add(message2);
 		
 		this.setCheckingButton(new JButton("Checking Account"));
 		this.CheckingButton.setBackground(Color.black);
@@ -63,7 +82,15 @@ public class EnrolledFrame extends JFrame{
 		this.setVisible(true);
 		
 	}
-	
+
+	public String getUser_name() {
+		return user_name;
+	}
+
+	public void setUser_name(String user_name) {
+		this.user_name = user_name;
+	}
+
 	public JPanel[][] getPanels() {
 		return panels;
 	}
