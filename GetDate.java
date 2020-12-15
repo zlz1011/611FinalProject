@@ -53,6 +53,11 @@ public class GetDate {
             Date dt1 = rightNow.getTime();
             reStr = sdf.format(dt1);
 
+            File file = new File(GetData.createFilePath("date.txt"));
+            FileWriter fileWriter=new FileWriter(file);
+            fileWriter.write(reStr);
+            fileWriter.close();
+
         }catch (ParseException e){
             e.printStackTrace();
         }catch (IOException e){
