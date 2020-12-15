@@ -3,7 +3,6 @@ import java.util.*;
 
 public class BankSystem {
 	
-	public static final String path =  "/Users/lingdean/Documents/CS611/FinalProject/src/Data/";
 	private final String nptxt = "namePass.txt";
 	private final String infotxt = "info.txt";
 	private final String transtxt = "transaction.txt";
@@ -16,9 +15,9 @@ public class BankSystem {
 	private static File transFile;
 	
 	public BankSystem() {
-		this.setNpPath(path+this.nptxt);
-		this.setInfoPath(path+this.infotxt);
-		this.setTransPath(path+this.transtxt);
+		this.setNpPath(GetData.createFilePath(this.nptxt));
+		this.setInfoPath(GetData.createFilePath(this.infotxt));
+		this.setTransPath(GetData.createFilePath(this.transtxt));
 	}
 	
 	public void Run() {

@@ -1,4 +1,5 @@
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Frame;
 import java.awt.GridLayout;
@@ -17,15 +18,22 @@ public class EnrolledFrame extends JFrame{
 	private JButton ExitButton;
 	private JButton BalanceButton;
 	private JButton TransactionButton;
-	private JButton StockButton;
+	private JButton TransferButton;
+	private boolean ifexit;
+	private boolean ifloans;
+	private boolean ifbalance;
+	private boolean iftransaction;
+	private boolean iftransfer;
 	
 	public EnrolledFrame() {
 		this.setUser_name(null);
+		this.setIfexit(false);
 		this.initcomp();
 	}
 	
 	public EnrolledFrame(String user_name) {
 		this.setUser_name(user_name);
+		this.setIfexit(false);
 		this.initcomp();
 	}
 	
@@ -37,6 +45,7 @@ public class EnrolledFrame extends JFrame{
 		JLabel message1 = new JLabel(welcome_message1,SwingConstants.RIGHT);
 		message1.setFont(new Font("Verdana",Font.PLAIN,24));
 		message1.setForeground(Color.blue);
+		
 		JLabel message2 = new JLabel(welcome_message2,SwingConstants.LEFT);
 		message2.setFont(new Font("Verdana",Font.PLAIN,24));
 		message2.setForeground(Color.blue);
@@ -46,16 +55,19 @@ public class EnrolledFrame extends JFrame{
 		this.setCheckingButton(new JButton("Checking Account"));
 		this.CheckingButton.setBackground(Color.black);
 		this.CheckingButton.setOpaque(true);
+		this.CheckingButton.addActionListener(new CheckingListener());
 		this.panels[1][0].add(this.CheckingButton);
 		
 		this.setSavingButton(new JButton("Saving Account"));
 		this.SavingButton.setBackground(Color.black);
 		this.SavingButton.setOpaque(true);
+		this.SavingButton.addActionListener(new SavingListener());
 		this.panels[1][3].add(this.SavingButton);
 		
 		this.setBalanceButton(new JButton("Current Balance"));
 		this.BalanceButton.setBackground(Color.black);
 		this.BalanceButton.setOpaque(true);
+		this.BalanceButton.addActionListener(new BalanceListener());
 		this.panels[3][0].add(this.BalanceButton);
 		
 		this.setLoansButton(new JButton("Request Loan"));
@@ -68,10 +80,16 @@ public class EnrolledFrame extends JFrame{
 		this.TransactionButton.setOpaque(true);
 		this.panels[5][0].add(this.TransactionButton);
 		
-		this.setStockButton(new JButton("Stock Market"));
-		this.StockButton.setBackground(Color.black);
-		this.StockButton.setOpaque(true);
-		this.panels[5][3].add(this.StockButton);
+		this.setTransferButton(new JButton("Transfer"));
+		this.TransferButton.setBackground(Color.black);
+		this.TransferButton.setOpaque(true);
+		this.panels[5][3].add(this.TransferButton);
+		
+		this.setExitButton(new JButton("Exit"));
+		this.ExitButton.setBackground(Color.black);
+		this.ExitButton.setOpaque(true);
+		this.ExitButton.addActionListener(new ExitListener());
+		this.panels[6][1].add(this.ExitButton);
 		
 		this.setTitle("You have enrolled your account");
 		this.setLayout(new GridLayout(7,4));
@@ -154,13 +172,63 @@ public class EnrolledFrame extends JFrame{
 		TransactionButton = transactionButton;
 	}
 
-	public JButton getStockButton() {
-		return StockButton;
+	public JButton getTransferButton() {
+		return this.TransferButton;
 	}
 
-	public void setStockButton(JButton stockButton) {
-		StockButton = stockButton;
+	public void setTransferButton(JButton transferButton) {
+		this.TransferButton = transferButton;
 	}
+
+	public boolean isIfexit() {
+		return ifexit;
+	}
+
+	public void setIfexit(boolean ifexit) {
+		this.ifexit = ifexit;
+		if(this.ifexit==true) {
+			this.dispose();
+		}
+	}
+
+	class CheckingListener implements ActionListener{
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			AccountFrame checkingFrame = new AccountFrame("Checking",user_name);
+		}
+		
+	}
+	
+	class SavingListener implements ActionListener{
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			AccountFrame savingFrame = new AccountFrame("Saving",user_name);
+		}
+		
+	}
+	
+	class BalanceListener implements ActionListener{
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			BalanceFrame balance = new BalanceFrame(user_name);
+			
+		}
+		
+	}
+	
+	class ExitListener implements ActionListener {
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			setIfexit(true);
+			WelcomeFrame welcome = new WelcomeFrame();
+		}
+
+	}
+	
 	
 }
 

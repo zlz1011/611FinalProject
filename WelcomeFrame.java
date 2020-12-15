@@ -157,22 +157,21 @@ public class WelcomeFrame extends JFrame {
 			String password = new String(passwordText.getPassword());
 			
 			ArrayList<String []> read_data = GetData.read(GetData.createFilePath("namePass.txt"), false);
+			boolean found = false;
+			JFrame warning = new JFrame();
 			
 			for (int i=0; i<read_data.size(); i++) {
 				String [] data = read_data.get(i);
 				
-				JFrame warning = new JFrame();
-				if (user_name.equals(data[0]) && !password.equals(data[1])){
-					JOptionPane.showMessageDialog(warning, "The password is not correct!");
-				}
-				else if (user_name.equals(data[0]) && password.equals(data[1])) {
+				if (user_name.equals(data[0]) && password.equals(data[1])) {
 					setIfenrolled(true);
 					EnrolledFrame enrolled= new EnrolledFrame(user_name);
+					found = true;
 				}
-				else {
-					JOptionPane.showMessageDialog(warning, "There is no such username!");
-				}
-				
+			}
+			
+			if(found == false) {
+				JOptionPane.showMessageDialog(warning, "The username or the password is not correct!");
 			}
 			
 		}

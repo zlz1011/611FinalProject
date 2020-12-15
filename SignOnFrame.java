@@ -10,7 +10,9 @@ import java.awt.event.ItemListener;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
+import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 
 import javax.swing.*;
 
@@ -219,6 +221,9 @@ public class SignOnFrame extends JFrame{
 			String checking_currency = Checkingcurrency.getItemAt(Checkingcurrency.getSelectedIndex());
 			
 			JFrame warning = new JFrame();
+			if(name.contains(" ")) {
+				JOptionPane.showMessageDialog(warning, "Your name cannot have any space!");
+			}
 			if(user_name.contains(" ")) {
 				JOptionPane.showMessageDialog(warning, "Your username cannot have any space!");
 			}
@@ -237,20 +242,23 @@ public class SignOnFrame extends JFrame{
 			if (checkNum()==false) {
 				JOptionPane.showMessageDialog(warning, "You must enter a positive number(>5) for your deposit money!");
 			}
+			if(checkUsername()==true) {
+				JOptionPane.showMessageDialog(warning, "This username has been used! Please enter another one!");
+			}
 			else {
 				String nameAndpass = user_name + " " + pass + "\n";
 				String allinfo;
 				if (Saving.isSelected() && !Checking.isSelected()) {
-					allinfo = name + " " + user_name + " " + pass + " " + 
-							"Saving" + " "+ saving_deposit +" "+ saving_currency +" "+ "Checking" +" "+ "0" + " "+ checking_currency+ "\n";
+					allinfo = user_name + " " + name + " "+ pass + " "+ saving_deposit+ " " + 
+							saving_currency + " " + "0" + " "+ checking_currency + " " +"null" +" \n";
 				}
 				else if (!Saving.isSelected() && Checking.isSelected()) {
-					allinfo =name + " " + user_name + " " + pass + " " + 
-							"Saving" + " "+ "0" +" "+ saving_currency +" "+ "Checking" +" "+ checking_deposit + " "+ checking_currency+ "\n";
+					allinfo =user_name + " " + name + " "+ pass + " "+ "0"+ " " + 
+							saving_currency + " " + checking_deposit + " "+ checking_currency + " " +"null" +" \n";
 				}
 				else {
-					allinfo = name + " " + user_name + " " + pass + " " + 
-							"Saving" + " "+ saving_deposit +" "+ saving_currency +" "+ "Checking" +" "+ checking_deposit + " "+ checking_currency+ "\n";
+					allinfo = user_name + " " + name + " "+ pass + " "+ saving_deposit+ " " + 
+							saving_currency + " " + checking_deposit + " "+ checking_currency + " " +"null" +" \n";
 				}
 				try {
 					FileWriter writer1 = new FileWriter(BankSystem.getNpPath(),true);
@@ -269,8 +277,19 @@ public class SignOnFrame extends JFrame{
 				
 			}
 			
+			String filename = "info_"+user_name + ".txt";
+			String path = GetData.createFilePath(filename);
+			
+			try {
+				File userfile = new File(path);
+				if (!userfile.exists()) {
+					userfile.createNewFile();
+				}
+			}catch (IOException e1) {
+				e1.printStackTrace();
+			}
 		}
-
+		
 	}
 	
 	public boolean checkFilled() {
@@ -313,6 +332,21 @@ public class SignOnFrame extends JFrame{
 		
 		if ((this.Saving.isSelected() && s<=5) || (this.Checking.isSelected() && c<=5)) {
 			flag = false;
+		}
+		
+		return flag;
+	}
+	
+	public boolean checkUsername() {
+		boolean flag = false;
+		String user_name = this.username.getText();
+		ArrayList<String []> read_data = GetData.read(GetData.createFilePath("namePass.txt"), false);
+		
+		for (int i=0; i<read_data.size(); i++) {
+			String [] data = read_data.get(i);
+			if(data[0].equals(user_name)) {
+				flag = true;
+			}
 		}
 		
 		return flag;
