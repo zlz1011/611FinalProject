@@ -32,14 +32,14 @@ public class BalanceFrame extends JFrame implements ReadData{
 	public BalanceFrame(String username) {
 		this.setPanels(new JPanel[7][4]);
 		this.setUsername(username);
-		this.setChecking_money(this.getDepositMoney("Checking"));
-		this.setSaving_money(this.getDepositMoney("Saving"));
-		this.setChecking_currency(this.getDepositCurrency("Checking"));
-		this.setSaving_currency(this.getDepositCurrency("Saving"));
+		this.setChecking_money(this.getDepositMoney("Checking",this.username));
+		this.setSaving_money(this.getDepositMoney("Saving",this.username));
+		this.setChecking_currency(this.getDepositCurrency("Checking",this.username));
+		this.setSaving_currency(this.getDepositCurrency("Saving",this.username));
 		
 		this.setTitle("Account Current Balance");
 		this.setLayout(new GridLayout(7,4));
-		this.setSize(1000,800);
+		this.setSize(1200,800);
 		this.setLocationRelativeTo(null);
 		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		this.initcomp();
@@ -71,6 +71,18 @@ public class BalanceFrame extends JFrame implements ReadData{
 		JLabel checking_currency = new JLabel(this.checking_currency,SwingConstants.LEFT);
 		checking_currency.setFont(new Font("Verdana",Font.PLAIN,22));
 		this.panels[3][3].add(checking_currency);
+		
+		JLabel loan = new JLabel("Your Current Loan:",SwingConstants.RIGHT);
+		loan.setFont(new Font("Verdana",Font.PLAIN,22));
+		this.panels[4][1].add(loan);
+		
+		JLabel loan_money = new JLabel(String.valueOf(this.getLoan(this.username)),SwingConstants.CENTER);
+		loan_money.setFont(new Font("Verdana",Font.PLAIN,22));
+		this.panels[4][2].add(loan_money);
+		
+		JLabel loan_currency = new JLabel("USD",SwingConstants.LEFT);
+		loan_currency.setFont(new Font("Verdana",Font.PLAIN,22));
+		this.panels[4][3].add(loan_currency);
 	}
 
 	public String getUsername() {
@@ -128,20 +140,33 @@ public class BalanceFrame extends JFrame implements ReadData{
 		}
 	}
 	
-
-	@Override
-	public int getDepositMoney(String accountType) {
+	public int getLoan(String username) {
 		ArrayList<String []> read_data = GetData.read(GetData.createFilePath("info.txt"), false);
 		int money_num = 0;
 		for (int i=0; i<read_data.size(); i++) {
 			String [] data = read_data.get(i);
 			for (int j=0; j<data.length; j++) {
-				if(this.username.equals(data[j])) {
+				if(username.equals(data[0])) {
+					money_num = Integer.parseInt(data[7]);
+				}
+			}
+		}
+		return money_num;
+	}
+	
+	@Override
+	public int getDepositMoney(String accountType, String username) {
+		ArrayList<String []> read_data = GetData.read(GetData.createFilePath("info.txt"), false);
+		int money_num = 0;
+		for (int i=0; i<read_data.size(); i++) {
+			String [] data = read_data.get(i);
+			for (int j=0; j<data.length; j++) {
+				if(username.equals(data[0])) {
 					if (accountType.equals("Saving")) {
-						money_num = Integer.parseInt(data[j+3]);
+						money_num = Integer.parseInt(data[3]);
 					}
 					else {
-						money_num = Integer.parseInt(data[j+5]);
+						money_num = Integer.parseInt(data[5]);
 					}
 				}
 			}
@@ -150,19 +175,19 @@ public class BalanceFrame extends JFrame implements ReadData{
 	}
 
 	@Override
-	public String getDepositCurrency(String accountType) {
+	public String getDepositCurrency(String accountType, String username) {
 		ArrayList<String []> read_data = GetData.read(GetData.createFilePath("info.txt"), false);
 		String currency_type = "USD";
 		
 		for (int i=0; i<read_data.size(); i++) {
 			String [] data = read_data.get(i);
 			for (int j=0; j<data.length; j++) {
-				if(this.username.equals(data[j])) {
+				if(username.equals(data[0])) {
 					if (accountType.equals("Saving")) {
-						currency_type = data[j+4];
+						currency_type = data[4];
 					}
 					else {
-						currency_type =data[j+6];
+						currency_type =data[6];
 					}
 				}
 			}

@@ -22,8 +22,8 @@ public class AccountFrame extends JFrame implements ReadData{
 		
 		this.setUsername(username);
 		this.setAccountType(accountType);
-		this.setMoney(this.getDepositMoney(accountType));
-		this.setCurrency(this.getDepositCurrency(accountType));
+		this.setMoney(this.getDepositMoney(accountType,this.username));
+		this.setCurrency(this.getDepositCurrency(accountType,this.username));
 		
 		String title = accountType + " Account Operations";
 		this.setTitle(title);
@@ -146,18 +146,18 @@ public class AccountFrame extends JFrame implements ReadData{
 		this.accountType = accountType;
 	}
 
-	public int getDepositMoney(String accountType) {
+	public int getDepositMoney(String accountType, String username) {
 		ArrayList<String []> read_data = GetData.read(GetData.createFilePath("info.txt"), false);
 		int money_num = 0;
 		for (int i=0; i<read_data.size(); i++) {
 			String [] data = read_data.get(i);
 			for (int j=0; j<data.length; j++) {
-				if(this.username.equals(data[j])) {
+				if(username.equals(data[0])) {
 					if (accountType.equals("Saving")) {
-						money_num = Integer.parseInt(data[j+3]);
+						money_num = Integer.parseInt(data[3]);
 					}
 					else {
-						money_num = Integer.parseInt(data[j+5]);
+						money_num = Integer.parseInt(data[5]);
 					}
 				}
 			}
@@ -165,19 +165,19 @@ public class AccountFrame extends JFrame implements ReadData{
 		return money_num;
 	}
 	
-	public String getDepositCurrency(String accountType) {
+	public String getDepositCurrency(String accountType, String username) {
 		ArrayList<String []> read_data = GetData.read(GetData.createFilePath("info.txt"), false);
 		String currency_type = "USD";
 		
 		for (int i=0; i<read_data.size(); i++) {
 			String [] data = read_data.get(i);
 			for (int j=0; j<data.length; j++) {
-				if(this.username.equals(data[j])) {
+				if(username.equals(data[0])) {
 					if (accountType.equals("Saving")) {
-						currency_type = data[j+4];
+						currency_type = data[4];
 					}
 					else {
-						currency_type =data[j+6];
+						currency_type =data[6];
 					}
 				}
 			}

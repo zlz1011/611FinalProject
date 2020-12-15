@@ -111,24 +111,28 @@ public class WithdrawDepositFrame extends JFrame implements ReadData, CheckInput
 				else {
 					money_input = Integer.parseInt(money.getText());
 					if(accountType.equals("Saving")) {
-						int old_money = getDepositMoney("Saving");
+						int old_money = getDepositMoney("Saving",username);
 						if(money_input > old_money) {
 							JOptionPane.showMessageDialog(warning, "You cannot withdraw over your current account balance!");
 						}
 						else {
 							int new_money = old_money - money_input;
-							DataModify.modifyData( GetData.createFilePath("info.txt"),username, "Saving", new_money);
+							DataModify.modifyMoney( GetData.createFilePath("info.txt"),username, "Saving", new_money);
+							String content = GetDate.currentDate() +":"+ username + " withdraws " + money_input + " from saving account.";
+							WriteData.writeData(username, content);
 							setIfsuccess(true);
 						}
 					}
 					else {
-						int old_money = getDepositMoney("Checking");
+						int old_money = getDepositMoney("Checking",username);
 						if(money_input > old_money) {
 							JOptionPane.showMessageDialog(warning, "You cannot withdraw over your current account balance!");
 						}
 						else {
 							int new_money = old_money - money_input;
-							DataModify.modifyData( GetData.createFilePath("info.txt"),username, "Checking", new_money);
+							DataModify.modifyMoney( GetData.createFilePath("info.txt"),username, "Checking", new_money);
+							String content = GetDate.currentDate() +":"+ username + " withdraws " + money_input + " from checking account.";
+							WriteData.writeData(username, content);
 							setIfsuccess(true);
 						}
 					}
@@ -142,15 +146,19 @@ public class WithdrawDepositFrame extends JFrame implements ReadData, CheckInput
 				else {
 					money_input = Integer.parseInt(money.getText());
 					if(accountType.equals("Saving")) {
-						int old_money = getDepositMoney("Saving");
+						int old_money = getDepositMoney("Saving",username);
 						int new_money = old_money + money_input;
-						DataModify.modifyData( GetData.createFilePath("info.txt"),username, "Saving", new_money);
+						DataModify.modifyMoney(GetData.createFilePath("info.txt"),username, "Saving", new_money);
+						String content = GetDate.currentDate() +":"+ username + " deposits " + money_input + " to saving account.";
+						WriteData.writeData(username, content);
 						setIfsuccess(true);
 					}
 					else {
-						int old_money = getDepositMoney("Checking");
+						int old_money = getDepositMoney("Checking",username);
 						int new_money = old_money + money_input;
-						DataModify.modifyData( GetData.createFilePath("info.txt"),username, "Checking", new_money);
+						DataModify.modifyMoney(GetData.createFilePath("info.txt"),username, "Checking", new_money);
+						String content = GetDate.currentDate() +":"+ username + " deposits " + money_input + " to checking account.";
+						WriteData.writeData(username, content);
 						setIfsuccess(true);
 					}
 				}
@@ -161,18 +169,18 @@ public class WithdrawDepositFrame extends JFrame implements ReadData, CheckInput
 		
 	}
 	
-	public int getDepositMoney(String accountType) {
+	public int getDepositMoney(String accountType, String username) {
 		ArrayList<String []> read_data = GetData.read(GetData.createFilePath("info.txt"), false);
 		int money_num = 0;
 		for (int i=0; i<read_data.size(); i++) {
 			String [] data = read_data.get(i);
 			for (int j=0; j<data.length; j++) {
-				if(this.username.equals(data[j])) {
+				if(username.equals(data[0])) {
 					if (accountType.equals("Saving")) {
-						money_num = Integer.parseInt(data[j+3]);
+						money_num = Integer.parseInt(data[3]);
 					}
 					else {
-						money_num = Integer.parseInt(data[j+5]);
+						money_num = Integer.parseInt(data[5]);
 					}
 				}
 			}
@@ -181,7 +189,7 @@ public class WithdrawDepositFrame extends JFrame implements ReadData, CheckInput
 	}
 
 	@Override
-	public String getDepositCurrency(String accountType) {
+	public String getDepositCurrency(String accountType, String username) {
 		
 		return null;
 	}

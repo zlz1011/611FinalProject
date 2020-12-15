@@ -1,7 +1,7 @@
 
 public interface ReadData {
-	public int getDepositMoney(String accountType);
+	public int getDepositMoney(String accountType, String username);
 	
-	public String getDepositCurrency(String accountType);
+	public String getDepositCurrency(String accountType, String username);
 	
 }

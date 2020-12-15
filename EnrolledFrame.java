@@ -64,7 +64,7 @@ public class EnrolledFrame extends JFrame{
 		this.SavingButton.addActionListener(new SavingListener());
 		this.panels[1][3].add(this.SavingButton);
 		
-		this.setBalanceButton(new JButton("Current Balance"));
+		this.setBalanceButton(new JButton("Current Balance/Loan"));
 		this.BalanceButton.setBackground(Color.black);
 		this.BalanceButton.setOpaque(true);
 		this.BalanceButton.addActionListener(new BalanceListener());
@@ -73,16 +73,19 @@ public class EnrolledFrame extends JFrame{
 		this.setLoansButton(new JButton("Request Loan"));
 		this.LoansButton.setBackground(Color.black);
 		this.LoansButton.setOpaque(true);
+		this.LoansButton.addActionListener(new LoanListener());
 		this.panels[3][3].add(this.LoansButton);
 		
 		this.setTransactionButton(new JButton("Transactions"));
 		this.TransactionButton.setBackground(Color.black);
 		this.TransactionButton.setOpaque(true);
+		this.TransactionButton.addActionListener(new TransactionListener());
 		this.panels[5][0].add(this.TransactionButton);
 		
 		this.setTransferButton(new JButton("Transfer"));
 		this.TransferButton.setBackground(Color.black);
 		this.TransferButton.setOpaque(true);
+		this.TransferButton.addActionListener(new TransferListener());
 		this.panels[5][3].add(this.TransferButton);
 		
 		this.setExitButton(new JButton("Exit"));
@@ -215,6 +218,33 @@ public class EnrolledFrame extends JFrame{
 		public void actionPerformed(ActionEvent e) {
 			BalanceFrame balance = new BalanceFrame(user_name);
 			
+		}
+		
+	}
+	
+	class TransferListener implements ActionListener{
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			TransferFrame transfer = new TransferFrame(user_name);
+		}
+		
+	}
+	
+	class LoanListener implements ActionListener{
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			LoanFrame loan = new LoanFrame(user_name);
+		}
+		
+	}
+	
+	class TransactionListener implements ActionListener{
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			TransactionFrame transaction = new TransactionFrame(user_name);
 		}
 		
 	}

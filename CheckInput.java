@@ -1,5 +1,6 @@
 
 public interface CheckInput {
+	
 	default public boolean checkInt(String input) {
 		int money_input=0;
 		boolean flag = true;

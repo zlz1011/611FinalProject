@@ -224,25 +224,25 @@ public class SignOnFrame extends JFrame{
 			if(name.contains(" ")) {
 				JOptionPane.showMessageDialog(warning, "Your name cannot have any space!");
 			}
-			if(user_name.contains(" ")) {
+			else if(user_name.contains(" ")) {
 				JOptionPane.showMessageDialog(warning, "Your username cannot have any space!");
 			}
-			if (!pass.equals(repass)) {
+			else if (!pass.equals(repass)) {
 				JOptionPane.showMessageDialog(warning, "The passwords you entered are not same!");
 			}
-			if (!Saving.isSelected() && !Checking.isSelected()) {
+			else if (!Saving.isSelected() && !Checking.isSelected()) {
 				JOptionPane.showMessageDialog(warning, "You must selected at least one account type!");
 			}
-			if ((saving_deposit.length()==0 && Saving.isSelected()) || (checking_deposit.length()==0 && Checking.isSelected())) {
+			else if ((saving_deposit.length()==0 && Saving.isSelected()) || (checking_deposit.length()==0 && Checking.isSelected())) {
 				JOptionPane.showMessageDialog(warning, "You have to deposit at least 5 to your specific account!");
 			}
-			if (checkFilled()==false) {
+			else if (checkFilled()==false) {
 				JOptionPane.showMessageDialog(warning, "You must fill the required fields!");
 			}
-			if (checkNum()==false) {
+			else if (checkNum()==false) {
 				JOptionPane.showMessageDialog(warning, "You must enter a positive number(>5) for your deposit money!");
 			}
-			if(checkUsername()==true) {
+			else if(checkUsername()==true) {
 				JOptionPane.showMessageDialog(warning, "This username has been used! Please enter another one!");
 			}
 			else {

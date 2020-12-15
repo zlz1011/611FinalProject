@@ -4,15 +4,15 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class TransferFrame extends JFrame{
+public class TransferFrame extends JFrame implements ReadData, CheckInput{
 	
 	private String username;
+	private String object_user;
 	private JTextField transfer_username;
 	private JTextField money;
 	private JButton button;
-	//private String operation;
 	private boolean ifsuccess;
-	//private String accountType;
+	private JComboBox<String> account;
 	
 	public TransferFrame(String username) {
 		this.setUsername(username);
@@ -26,8 +26,24 @@ public class TransferFrame extends JFrame{
 		this.setButton(new JButton("Transfer"));
 		this.button.addActionListener(new ButtonListener());
 		
+		String [] accountName = new String[] {"Saving","Checking"};
+		this.setAccount(new JComboBox<String>(accountName));
+		
+		JLabel input1 = new JLabel("Enter others' username:",SwingConstants.RIGHT);
+		JLabel input2 = new JLabel("Enter your number:",SwingConstants.RIGHT);
+		JLabel input3 = new JLabel("Choose your account:",SwingConstants.RIGHT);
+		
+		this.add(input1);
+		this.add(this.transfer_username);
+		this.add(input2);
+		this.add(this.money);
+		this.add(input3);
+		this.add(this.account);
+		this.add(new JPanel());
+		this.add(this.button);
+		
 		this.setTitle("Tranfer your money");
-		this.setLayout(new GridLayout(2,2));
+		this.setLayout(new GridLayout(4,2));
 		this.setSize(400,200);
 		this.setLocationRelativeTo(null);
 		this.setVisible(true);
@@ -72,17 +88,138 @@ public class TransferFrame extends JFrame{
 
 	public void setIfsuccess(boolean ifsuccess) {
 		this.ifsuccess = ifsuccess;
+		if(this.ifsuccess) {
+			this.dispose();
+		}
 	}
 	
-	class ButtonListener implements ActionListener{
+	public String getObject_user() {
+		return object_user;
+	}
 
+	public void setObject_user(String object_user) {
+		this.object_user = object_user;
+	}
+
+	public JComboBox<String> getAccount() {
+		return account;
+	}
+
+	public void setAccount(JComboBox<String> account) {
+		this.account = account;
+	}
+
+	class ButtonListener implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent e) {
-		
+			int money_input =0;
+			JFrame warning = new JFrame();
+			setObject_user(transfer_username.getText());
+			String account_type = account.getItemAt(account.getSelectedIndex());
+			String currency = getDepositCurrency(account_type,username);
+			
+			if (checkUsername(object_user)==false) {
+				JOptionPane.showMessageDialog(warning, "There is no such account username you want to transfer!");
+			}
+			else if (currency.equals(getDepositCurrency("Saving",object_user))==false &&
+					currency.equals(getDepositCurrency("Checking",object_user))==false) {
+				JOptionPane.showMessageDialog(warning, "Your and your object's currency unit are not corresponding! Cannot Transfer!");
+			}
+			else {
+				if (checkInt(money.getText()) == false) {
+					JOptionPane.showMessageDialog(warning, "You must enter a positive integer!");
+				}
+				else {
+					money_input = Integer.parseInt(money.getText());
+					int old_money = getDepositMoney(account_type,username);			
+					if(money_input > old_money) {
+						JOptionPane.showMessageDialog(warning, "You cannot transfer over your current account balance!");
+					}
+					else {
+						int new_money = old_money - money_input;
+						DataModify.modifyMoney(GetData.createFilePath("info.txt"),username, account_type, new_money);
+						//default is transfered to saving account, if none saving account, transfer to checking account
+						if(currency.equals(getDepositCurrency("Saving",object_user)) && getDepositMoney("Saving",object_user)>0) {
+							int get_money = getDepositMoney("Saving",object_user) + money_input;
+							DataModify.modifyMoney(GetData.createFilePath("info.txt"),object_user, "Saving", get_money);
+							String content = GetDate.currentDate() +":"+ username + " transfers " + money_input + " to " + object_user+".";
+							WriteData.writeData(username, content);
+							String content2 = GetDate.currentDate() +":"+ object_user + " receives " + money_input + " from " + username+".";
+							WriteData.writeData(object_user, content2);
+						}
+						else {
+							int get_money = getDepositMoney("Checking",object_user) + money_input;
+							DataModify.modifyMoney(GetData.createFilePath("info.txt"),object_user, "Checking", get_money);
+							String content = GetDate.currentDate() +":"+ username + " transfers " + money_input + " to " + object_user+".";
+							WriteData.writeData(username, content);
+							String content2 = GetDate.currentDate() +":"+ object_user + " receives " + money_input + " from " + username+".";
+							WriteData.writeData(object_user, content2);
+						}
+						setIfsuccess(true);
+					}
+				}
+			}
 			
 		}
 	
 	}
+
+	@Override
+	public int getDepositMoney(String accountType, String username) {
+		ArrayList<String []> read_data = GetData.read(GetData.createFilePath("info.txt"), false);
+		int money_num = 0;
+		for (int i=0; i<read_data.size(); i++) {
+			String [] data = read_data.get(i);
+			for (int j=0; j<data.length; j++) {
+				if(username.equals(data[0])) {
+					if (accountType.equals("Saving")) {
+						money_num = Integer.parseInt(data[3]);
+					}
+					else {
+						money_num = Integer.parseInt(data[5]);
+					}
+				}
+			}
+		}
+		return money_num;
+	}
+
+	@Override
+	public String getDepositCurrency(String accountType, String username) {
+		ArrayList<String []> read_data = GetData.read(GetData.createFilePath("info.txt"), false);
+		String currency_type = "USD";
+		
+		for (int i=0; i<read_data.size(); i++) {
+			String [] data = read_data.get(i);
+			for (int j=0; j<data.length; j++) {
+				if(username.equals(data[0])) {
+					if (accountType.equals("Saving")) {
+						currency_type = data[4];
+					}
+					else {
+						currency_type =data[6];
+					}
+				}
+			}
+		}
+		return currency_type;
+	}
+	
+	public boolean checkUsername(String username) {
+		boolean flag = false;
+		String user_name = username;
+		ArrayList<String []> read_data = GetData.read(GetData.createFilePath("namePass.txt"), false);
+		
+		for (int i=0; i<read_data.size(); i++) {
+			String [] data = read_data.get(i);
+			if(data[0].equals(user_name)) {
+				flag = true;
+			}
+		}
+		
+		return flag;
+	}
+	
 	
 
 }
