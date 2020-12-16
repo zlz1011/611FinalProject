@@ -104,8 +104,12 @@ public class ManagerBankMoneyFrame extends JFrame {
                         if (abc[1].equals(type)) {
                             if(e.getSource()==addButton){
                                 b1=b1+Double.valueOf(abc[0]);
-                                DecimalFormat df = new DecimalFormat("#.00");
-                                String newmoney=df.format(b1);
+
+                                //use double or int
+                                //DecimalFormat df = new DecimalFormat("#.00");
+                                //String newmoney=df.format(b1);
+                                String newmoney=String.valueOf((int)b1);
+
                                 fileWriter.write(newmoney + "\t" + abc[1] + "\n");
                             }else if(e.getSource()==minusButton){
                                 if(b1>Double.valueOf(abc[0])){
@@ -113,8 +117,12 @@ public class ManagerBankMoneyFrame extends JFrame {
                                     return;
                                 }
                                 b1=Double.valueOf(abc[0])-b1;
-                                DecimalFormat df = new DecimalFormat("#.00");
-                                String newmoney=df.format(b1);
+
+                                //use double or int
+                                //DecimalFormat df = new DecimalFormat("#.00");
+                                //String newmoney=df.format(b1);
+                                String newmoney=String.valueOf((int)b1);
+
                                 fileWriter.write(newmoney + "\t" + abc[1] + "\n");
                             }
                             flag=false;
