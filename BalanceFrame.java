@@ -14,6 +14,7 @@ public class BalanceFrame extends JFrame implements ReadData{
 	private String checking_currency;
 	private String saving_currency;
 	
+	
 	public BalanceFrame() {
 		this.setPanels(new JPanel[7][4]);
 		this.setUsername(null);
@@ -48,7 +49,7 @@ public class BalanceFrame extends JFrame implements ReadData{
 	
 	public void initcomp() {
 		
-		JLabel saving= new JLabel("Current Saving Account Balance:",SwingConstants.RIGHT);
+		JLabel saving= new JLabel("Current Saving Account Balance:",SwingConstants.CENTER);
 		saving.setFont(new Font("Verdana",Font.PLAIN,18));
 		this.panels[2][1].add(saving);
 		
@@ -60,7 +61,7 @@ public class BalanceFrame extends JFrame implements ReadData{
 		saving_currency.setFont(new Font("Verdana",Font.PLAIN,22));
 		this.panels[2][3].add(saving_currency);
 		
-		JLabel checking = new JLabel("Current Checking Account Balance:",SwingConstants.RIGHT);
+		JLabel checking = new JLabel("Current Checking Account Balance:",SwingConstants.CENTER);
 		checking.setFont(new Font("Verdana",Font.PLAIN,18));
 		this.panels[3][1].add(checking);
 		
@@ -139,61 +140,5 @@ public class BalanceFrame extends JFrame implements ReadData{
 			}
 		}
 	}
-	
-	public int getLoan(String username) {
-		ArrayList<String []> read_data = GetData.read(GetData.createFilePath("info.txt"), false);
-		int money_num = 0;
-		for (int i=0; i<read_data.size(); i++) {
-			String [] data = read_data.get(i);
-			for (int j=0; j<data.length; j++) {
-				if(username.equals(data[0])) {
-					money_num = Integer.parseInt(data[7]);
-				}
-			}
-		}
-		return money_num;
-	}
-	
-	@Override
-	public int getDepositMoney(String accountType, String username) {
-		ArrayList<String []> read_data = GetData.read(GetData.createFilePath("info.txt"), false);
-		int money_num = 0;
-		for (int i=0; i<read_data.size(); i++) {
-			String [] data = read_data.get(i);
-			for (int j=0; j<data.length; j++) {
-				if(username.equals(data[0])) {
-					if (accountType.equals("Saving")) {
-						money_num = Integer.parseInt(data[3]);
-					}
-					else {
-						money_num = Integer.parseInt(data[5]);
-					}
-				}
-			}
-		}
-		return money_num;
-	}
-
-	@Override
-	public String getDepositCurrency(String accountType, String username) {
-		ArrayList<String []> read_data = GetData.read(GetData.createFilePath("info.txt"), false);
-		String currency_type = "USD";
-		
-		for (int i=0; i<read_data.size(); i++) {
-			String [] data = read_data.get(i);
-			for (int j=0; j<data.length; j++) {
-				if(username.equals(data[0])) {
-					if (accountType.equals("Saving")) {
-						currency_type = data[4];
-					}
-					else {
-						currency_type =data[6];
-					}
-				}
-			}
-		}
-		return currency_type;
-	}
-
 	
 }

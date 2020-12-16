@@ -1,3 +1,4 @@
 2020-12-16:my123 deposits 4000 to saving account.
 2020-12-16:my123 transfers 2000 from saving account to checking account.
 2020-12-16:my123 transfers 500 to lucien.
+2020-12-16:my123 receives 5000 USD loans from our bank.

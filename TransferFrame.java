@@ -164,46 +164,6 @@ public class TransferFrame extends JFrame implements ReadData, CheckInput{
 	
 	}
 
-	@Override
-	public int getDepositMoney(String accountType, String username) {
-		ArrayList<String []> read_data = GetData.read(GetData.createFilePath("info.txt"), false);
-		int money_num = 0;
-		for (int i=0; i<read_data.size(); i++) {
-			String [] data = read_data.get(i);
-			for (int j=0; j<data.length; j++) {
-				if(username.equals(data[0])) {
-					if (accountType.equals("Saving")) {
-						money_num = Integer.parseInt(data[3]);
-					}
-					else {
-						money_num = Integer.parseInt(data[5]);
-					}
-				}
-			}
-		}
-		return money_num;
-	}
-
-	@Override
-	public String getDepositCurrency(String accountType, String username) {
-		ArrayList<String []> read_data = GetData.read(GetData.createFilePath("info.txt"), false);
-		String currency_type = "USD";
-		
-		for (int i=0; i<read_data.size(); i++) {
-			String [] data = read_data.get(i);
-			for (int j=0; j<data.length; j++) {
-				if(username.equals(data[0])) {
-					if (accountType.equals("Saving")) {
-						currency_type = data[4];
-					}
-					else {
-						currency_type =data[6];
-					}
-				}
-			}
-		}
-		return currency_type;
-	}
 	
 	public boolean checkUsername(String username) {
 		boolean flag = false;
@@ -219,7 +179,6 @@ public class TransferFrame extends JFrame implements ReadData, CheckInput{
 		
 		return flag;
 	}
-	
-	
+
 
 }

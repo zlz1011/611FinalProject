@@ -4,7 +4,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class LoanFrame extends JFrame implements CheckInput{
+public class LoanFrame extends JFrame implements ReadData,CheckInput{
 	
 	private String username;
 	private JTextField value;
@@ -81,9 +81,15 @@ public class LoanFrame extends JFrame implements CheckInput{
 			if (checkInt(money_input)==false) {
 				JOptionPane.showMessageDialog(warning, "You must enter a positive integer!");
 			}
+			else if (!getDepositCurrency("Saving",username).equals("USD") &&
+					!getDepositCurrency("Checking",username).equals("USD")) {
+				JOptionPane.showMessageDialog(warning, "You must have a USD account to request a loan!");
+			}
 			else {
 				int money = Integer.parseInt(money_input);
 				DataModify.modifyLoan(GetData.createFilePath("info.txt"), username, money);
+				String content = GetDate.currentDate() +":"+ username + " receives " + money + " USD loans from our bank.";
+				WriteData.writeData(username, content);
 				String remind = "You have successfully took out loan: " + money;
 				JOptionPane.showMessageDialog(warning, remind);
 				setExit(true);

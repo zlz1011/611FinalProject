@@ -19,6 +19,7 @@ public class EnrolledFrame extends JFrame{
 	private JButton BalanceButton;
 	private JButton TransactionButton;
 	private JButton TransferButton;
+	private JButton PayLoanButton;
 	private boolean ifexit;
 	private boolean ifloans;
 	private boolean ifbalance;
@@ -56,50 +57,56 @@ public class EnrolledFrame extends JFrame{
 		this.CheckingButton.setBackground(Color.black);
 		this.CheckingButton.setOpaque(true);
 		this.CheckingButton.addActionListener(new CheckingListener());
-		this.panels[1][0].add(this.CheckingButton);
+		this.panels[0][0].add(this.CheckingButton);
 		
 		this.setSavingButton(new JButton("Saving Account"));
 		this.SavingButton.setBackground(Color.black);
 		this.SavingButton.setOpaque(true);
 		this.SavingButton.addActionListener(new SavingListener());
-		this.panels[1][3].add(this.SavingButton);
+		this.panels[0][3].add(this.SavingButton);
 		
 		this.setBalanceButton(new JButton("Current Balance/Loan"));
 		this.BalanceButton.setBackground(Color.black);
 		this.BalanceButton.setOpaque(true);
 		this.BalanceButton.addActionListener(new BalanceListener());
-		this.panels[3][0].add(this.BalanceButton);
+		this.panels[2][0].add(this.BalanceButton);
 		
 		this.setLoansButton(new JButton("Request Loan"));
 		this.LoansButton.setBackground(Color.black);
 		this.LoansButton.setOpaque(true);
 		this.LoansButton.addActionListener(new LoanListener());
-		this.panels[3][3].add(this.LoansButton);
+		this.panels[2][3].add(this.LoansButton);
 		
 		this.setTransactionButton(new JButton("Transactions"));
 		this.TransactionButton.setBackground(Color.black);
 		this.TransactionButton.setOpaque(true);
 		this.TransactionButton.addActionListener(new TransactionListener());
-		this.panels[5][0].add(this.TransactionButton);
+		this.panels[4][0].add(this.TransactionButton);
 		
 		this.setTransferButton(new JButton("Transfer"));
 		this.TransferButton.setBackground(Color.black);
 		this.TransferButton.setOpaque(true);
 		this.TransferButton.addActionListener(new TransferListener());
-		this.panels[5][3].add(this.TransferButton);
+		this.panels[4][3].add(this.TransferButton);
+		
+		this.setPayLoanButton(new JButton("Pay Loans"));
+		this.PayLoanButton.setBackground(Color.black);
+		this.PayLoanButton.setOpaque(true);
+		this.PayLoanButton.addActionListener(new PayLoanListener());
+		this.panels[6][0].add(this.PayLoanButton);
 		
 		this.setExitButton(new JButton("Exit"));
 		this.ExitButton.setBackground(Color.black);
 		this.ExitButton.setOpaque(true);
 		this.ExitButton.addActionListener(new ExitListener());
-		this.panels[6][1].add(this.ExitButton);
+		this.panels[6][3].add(this.ExitButton);
 		
 		this.setTitle("You have enrolled your account");
 		this.setLayout(new GridLayout(7,4));
 		// Set frame size to fit the screen
 		this.setExtendedState(Frame.MAXIMIZED_BOTH);
 		this.setLocationRelativeTo(null);
-		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setVisible(true);
 		
 	}
@@ -186,6 +193,14 @@ public class EnrolledFrame extends JFrame{
 	public boolean isIfexit() {
 		return ifexit;
 	}
+	
+	public JButton getPayLoanButton() {
+		return PayLoanButton;
+	}
+
+	public void setPayLoanButton(JButton payLoanButton) {
+		PayLoanButton = payLoanButton;
+	}
 
 	public void setIfexit(boolean ifexit) {
 		this.ifexit = ifexit;
@@ -245,6 +260,15 @@ public class EnrolledFrame extends JFrame{
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			TransactionFrame transaction = new TransactionFrame(user_name);
+		}
+		
+	}
+	
+	class PayLoanListener implements ActionListener{
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			PayLoanFrame payframe = new PayLoanFrame(user_name);
 		}
 		
 	}
