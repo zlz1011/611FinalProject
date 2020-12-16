@@ -16,7 +16,8 @@ public class GetDate {
         if (!file.exists()){
             file.createNewFile();
             FileWriter fileWriter=new FileWriter(file);
-            fileWriter.write("2020-12-16");
+            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+            fileWriter.write(formatter.format(new Date()));
             fileWriter.close();
         }
     }
