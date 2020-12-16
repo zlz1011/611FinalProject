@@ -21,10 +21,6 @@ public class EnrolledFrame extends JFrame{
 	private JButton TransferButton;
 	private JButton PayLoanButton;
 	private boolean ifexit;
-	private boolean ifloans;
-	private boolean ifbalance;
-	private boolean iftransaction;
-	private boolean iftransfer;
 	
 	public EnrolledFrame() {
 		this.setUser_name(null);

@@ -144,16 +144,20 @@ public class TransferFrame extends JFrame implements ReadData, CheckInput{
 							DataModify.modifyMoney(GetData.createFilePath("info.txt"),object_user, "Saving", get_money);
 							String content = GetDate.currentDate() +":"+ username + " transfers " + money_input + " to " + object_user+".";
 							WriteData.writeData(username, content);
+							WriteData.writeTransaction(GetDate.currentDate(), content);
 							String content2 = GetDate.currentDate() +":"+ object_user + " receives " + money_input + " from " + username+".";
 							WriteData.writeData(object_user, content2);
+							WriteData.writeTransaction(GetDate.currentDate(), content2);
 						}
 						else {
 							int get_money = getDepositMoney("Checking",object_user) + money_input;
 							DataModify.modifyMoney(GetData.createFilePath("info.txt"),object_user, "Checking", get_money);
 							String content = GetDate.currentDate() +":"+ username + " transfers " + money_input + " to " + object_user+".";
 							WriteData.writeData(username, content);
+							WriteData.writeTransaction(GetDate.currentDate(), content);
 							String content2 = GetDate.currentDate() +":"+ object_user + " receives " + money_input + " from " + username+".";
 							WriteData.writeData(object_user, content2);
+							WriteData.writeTransaction(GetDate.currentDate(), content2);
 						}
 						setIfsuccess(true);
 					}

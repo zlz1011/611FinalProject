@@ -5,7 +5,7 @@ public class BankSystem {
 	
 	private final String nptxt = "namePass.txt";
 	private final String infotxt = "info.txt";
-	private final String transtxt = "transaction.txt";
+	private final String transtxt = GetDate.currentDate()+"_report.txt";
 		
 	private static String npPath;
 	private static String infoPath;

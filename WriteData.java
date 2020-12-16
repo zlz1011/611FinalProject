@@ -19,5 +19,21 @@ public class WriteData {
 		
 	}
 	
+	public static void writeTransaction(String date, String content)  {
+		
+		String filename = date+"_report.txt";
+		String path = GetData.createFilePath(filename);
+		content = content + "\n";
+		
+		try {
+			FileWriter writer = new FileWriter(path,true);
+			writer.write(content);
+			writer.close();
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+	}
+	
 	
 }

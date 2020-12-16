@@ -98,6 +98,7 @@ public class TransferCheckingFrame extends JFrame implements ReadData,CheckInput
 					DataModify.modifyMoney(GetData.createFilePath("info.txt"),username, "Checking", new_checkingmoney);
 					String content = GetDate.currentDate() +":"+ username + " transfers " + money_input + " from saving account to checking account.";
 					WriteData.writeData(username, content);
+					WriteData.writeTransaction(GetDate.currentDate(), content);
 					setIfsuccess(true);
 				}
 			}

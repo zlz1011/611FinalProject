@@ -90,6 +90,7 @@ public class LoanFrame extends JFrame implements ReadData,CheckInput{
 				DataModify.modifyLoan(GetData.createFilePath("info.txt"), username, money);
 				String content = GetDate.currentDate() +":"+ username + " receives " + money + " USD loans from our bank.";
 				WriteData.writeData(username, content);
+				WriteData.writeTransaction(GetDate.currentDate(), content);
 				String remind = "You have successfully took out loan: " + money;
 				JOptionPane.showMessageDialog(warning, remind);
 				setExit(true);

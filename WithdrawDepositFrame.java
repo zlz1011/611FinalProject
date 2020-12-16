@@ -120,6 +120,7 @@ public class WithdrawDepositFrame extends JFrame implements ReadData, CheckInput
 							DataModify.modifyMoney( GetData.createFilePath("info.txt"),username, "Saving", new_money);
 							String content = GetDate.currentDate() +":"+ username + " withdraws " + money_input + " from saving account.";
 							WriteData.writeData(username, content);
+							WriteData.writeTransaction(GetDate.currentDate(), content);
 							setIfsuccess(true);
 						}
 					}
@@ -133,6 +134,7 @@ public class WithdrawDepositFrame extends JFrame implements ReadData, CheckInput
 							DataModify.modifyMoney( GetData.createFilePath("info.txt"),username, "Checking", new_money);
 							String content = GetDate.currentDate() +":"+ username + " withdraws " + money_input + " from checking account.";
 							WriteData.writeData(username, content);
+							WriteData.writeTransaction(GetDate.currentDate(), content);
 							setIfsuccess(true);
 						}
 					}
@@ -151,6 +153,7 @@ public class WithdrawDepositFrame extends JFrame implements ReadData, CheckInput
 						DataModify.modifyMoney(GetData.createFilePath("info.txt"),username, "Saving", new_money);
 						String content = GetDate.currentDate() +":"+ username + " deposits " + money_input + " to saving account.";
 						WriteData.writeData(username, content);
+						WriteData.writeTransaction(GetDate.currentDate(), content);
 						setIfsuccess(true);
 					}
 					else {
@@ -159,6 +162,7 @@ public class WithdrawDepositFrame extends JFrame implements ReadData, CheckInput
 						DataModify.modifyMoney(GetData.createFilePath("info.txt"),username, "Checking", new_money);
 						String content = GetDate.currentDate() +":"+ username + " deposits " + money_input + " to checking account.";
 						WriteData.writeData(username, content);
+						WriteData.writeTransaction(GetDate.currentDate(), content);
 						setIfsuccess(true);
 					}
 				}

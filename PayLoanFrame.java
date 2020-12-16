@@ -118,6 +118,9 @@ public class PayLoanFrame extends JFrame implements ReadData, CheckInput{
 					int new_money = old_money - money_input;
 					DataModify.modifyLoan(GetData.createFilePath("info.txt"), username, new_loan);
 					DataModify.modifyMoney(GetData.createFilePath("info.txt"), username, account_type, new_money);
+					String content = GetDate.currentDate() +":"+ username + " pays " + money_input + " USD loans to the bank.";
+					WriteData.writeData(username, content);
+					WriteData.writeTransaction(GetDate.currentDate(), content);
 					setIfsuccess(true);
 				}
 			}

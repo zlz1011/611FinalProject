@@ -37,14 +37,16 @@ public class WelcomeFrame extends JFrame {
 		// Set frame size to fit the screen
 		this.setExtendedState(Frame.MAXIMIZED_BOTH);
 		this.setLocationRelativeTo(null);
-		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setVisible(true);
 		this.add(this.SignInPanel);
 		this.add(this.SignUpPanel);
+		this.add(this.managerButton);
 		// add listenners
 		this.SignInButton.addActionListener(new SignInListener());
 		this.SignUpButton.addActionListener(new SignOnListener());
 		this.exitButton.addActionListener(new ExitListener());
+		this.managerButton.addActionListener(new ManagerListener());
 	}
 
 	public JPanel getSignInPanel() {
@@ -135,6 +137,7 @@ public class WelcomeFrame extends JFrame {
 
 	public void setManagerButton(JButton managerButton) {
 		this.managerButton = managerButton;
+		this.managerButton.setBounds(20, 20, 200, 40);;
 	}
 
 	public boolean isIfenrolled() {
@@ -175,7 +178,15 @@ public class WelcomeFrame extends JFrame {
 			}
 			
 		}
+	}
+	
+	class ManagerListener implements ActionListener{
 
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			ManagerLoginFrame manager_frame = new ManagerLoginFrame();
+		}
+		
 	}
 }
 
@@ -184,7 +195,6 @@ class SignOnListener implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
 		SignOnFrame frame = new SignOnFrame();
 	}
 
