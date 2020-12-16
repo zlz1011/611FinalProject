@@ -4,7 +4,13 @@ import java.awt.GridLayout;
 import java.util.ArrayList;
 
 import javax.swing.*;
-
+/**
+ * 
+ * @author lingdean
+ * The BalanceFrame is used to check and see user's current balances of saving and checking account.
+ * It also shows the loan if the user has.
+ *
+ */
 public class BalanceFrame extends JFrame implements ReadData{
 	
 	private String username;
