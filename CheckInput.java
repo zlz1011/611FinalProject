@@ -1,4 +1,8 @@
-
+/**
+ * 
+ * @author lingdean
+ * The CheckInput interface is only used to check if the user entered is integer. 
+ */
 public interface CheckInput {
 	
 	default public boolean checkInt(String input) {

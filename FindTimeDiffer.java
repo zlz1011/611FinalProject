@@ -2,6 +2,11 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat; 
 import java.util.Date; 
 
+/**
+ * 
+ * @author lingdean
+ * FindTimeDiffer class is used to find the difference in days between two dates.
+ */
 public class FindTimeDiffer {
 
 	public static long findDateDiffer(String start_date, String end_date) {

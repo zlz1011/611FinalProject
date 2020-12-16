@@ -1,6 +1,10 @@
 import java.io.FileWriter;
 import java.io.IOException;
-
+/**
+ * 
+ * @author lingdean
+ * WriteData is used to write information to the specific file.
+ */
 public class WriteData {
 	
 	public static void writeData(String username, String content)  {

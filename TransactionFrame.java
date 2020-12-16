@@ -1,7 +1,11 @@
 import java.util.*;
 import java.awt.*;
 import javax.swing.*;
-
+/**
+ * 
+ * @author lingdean
+ *	The TransactionFrame
+ */
 public class TransactionFrame extends JFrame{
 
 	private JPanel [][] panels;

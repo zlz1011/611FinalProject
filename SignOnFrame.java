@@ -15,7 +15,13 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 
 import javax.swing.*;
-
+/**
+ * 
+ * @author lingdean
+ *	SignOnFrame is used when a user opens a new account. 
+ *	It asks the basic info of the user.
+ *
+ */
 public class SignOnFrame extends JFrame implements ReadData, CheckInput{
 	
 	private JTextField personName;
@@ -276,12 +282,14 @@ public class SignOnFrame extends JFrame implements ReadData, CheckInput{
 					if (getDepositMoney("Saving",user_name)>0) {
 						int money =  getDepositMoney("Saving",user_name);
 						String currency = getDepositCurrency("Saving",user_name);
+						//charge fee
 						DataModify.modifyMoney(GetData.createFilePath("info.txt"), user_name, "Saving", money-3);
 						DataModify.modifyBankMoney(GetData.createFilePath("bank_money.txt"), currency, getBankMoney(currency)+3);
 					}
 					else {
 						int money =  getDepositMoney("Checking",user_name);
 						String currency = getDepositCurrency("Checking",user_name);
+						//charge fee
 						DataModify.modifyMoney(GetData.createFilePath("info.txt"), user_name, "Checking", money-3);
 						DataModify.modifyBankMoney(GetData.createFilePath("bank_money.txt"), currency, getBankMoney(currency)+3);
 					}

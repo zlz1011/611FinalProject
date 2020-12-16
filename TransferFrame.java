@@ -3,7 +3,11 @@ import java.util.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
+/**
+ * 
+ * @author lingdean
+ * TransferFrame is used when user want to transfer money from his/her account to other user's account.
+ */
 public class TransferFrame extends JFrame implements ReadData, CheckInput{
 	
 	private String username;
@@ -143,13 +147,14 @@ public class TransferFrame extends JFrame implements ReadData, CheckInput{
 							int get_money = getDepositMoney("Saving",object_user) + money_input - 5;
 							DataModify.modifyMoney(GetData.createFilePath("info.txt"),object_user, "Saving", get_money);
 							String content = GetDate.currentDate() +":"+ username + " transfers " + money_input + " to " + object_user+".";
+							//record
 							WriteData.writeData(username, content);
 							WriteData.writeTransaction(GetDate.currentDate(), content);
 							
 							String content2 = GetDate.currentDate() +":"+ object_user + " receives " + money_input + " from " + username+".";
 							WriteData.writeData(object_user, content2);
 							WriteData.writeTransaction(GetDate.currentDate(), content2);
-							
+							//charge money
 							DataModify.modifyBankMoney(GetData.createFilePath("bank_money.txt"), currency, getBankMoney(currency)+5);
 							JOptionPane.showMessageDialog(warning, "You will be charged 5 for transfering money to other user!");
 						}
@@ -157,13 +162,14 @@ public class TransferFrame extends JFrame implements ReadData, CheckInput{
 							int get_money = getDepositMoney("Checking",object_user) + money_input - 5;
 							DataModify.modifyMoney(GetData.createFilePath("info.txt"),object_user, "Checking", get_money);
 							String content = GetDate.currentDate() +":"+ username + " transfers " + money_input + " to " + object_user+".";
+							//record 
 							WriteData.writeData(username, content);
 							WriteData.writeTransaction(GetDate.currentDate(), content);
 							
 							String content2 = GetDate.currentDate() +":"+ object_user + " receives " + money_input + " from " + username+".";
 							WriteData.writeData(object_user, content2);
 							WriteData.writeTransaction(GetDate.currentDate(), content2);
-							
+							//charge money
 							DataModify.modifyBankMoney(GetData.createFilePath("bank_money.txt"), currency, getBankMoney(currency)+5);
 							JOptionPane.showMessageDialog(warning, "You will be charged 5 for transfering money to other user!");
 						}
@@ -176,7 +182,7 @@ public class TransferFrame extends JFrame implements ReadData, CheckInput{
 	
 	}
 
-	
+	//check if has the user
 	public boolean checkUsername(String username) {
 		boolean flag = false;
 		String user_name = username;

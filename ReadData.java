@@ -1,5 +1,9 @@
 import java.util.ArrayList;
-
+/**
+ * 
+ * @author lingdean
+ * ReadData interface is used to read some data from the specific file if needed.
+ */
 public interface ReadData {
 	
 	default public int getDepositMoney(String accountType, String username) {

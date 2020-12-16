@@ -4,6 +4,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
+/**
+ * 
+ * @author lingdean
+ *	The AccountFrame class is used to check and see saving or checking account of the user. 
+ *	The user could withdraw, deposit and transfer money from saving account to checking account through this frame.
+ *	It implements the ReadData interface.
+ */
 public class AccountFrame extends JFrame implements ReadData{
 
 	private String username;

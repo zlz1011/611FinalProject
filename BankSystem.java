@@ -1,6 +1,11 @@
 import java.io.*;
 import java.util.*;
-
+/**
+ * 
+ * @author lingdean
+ * BankSystem is the main class of this project. It is used to run the program.
+ * It initializes the necessary files needed for the bank system. 
+ */
 public class BankSystem {
 
     private final String nptxt = "namePass.txt";

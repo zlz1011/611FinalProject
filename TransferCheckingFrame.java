@@ -3,7 +3,12 @@ import java.util.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
+/**
+ * 
+ * @author lingdean
+ * TransferCheckingFrame is used when user want to transfer money from saving account to checking account.
+ * 
+ */
 public class TransferCheckingFrame extends JFrame implements ReadData,CheckInput{
 	
 	private String username;
@@ -95,12 +100,13 @@ public class TransferCheckingFrame extends JFrame implements ReadData,CheckInput
 					int new_savingmoney = old_savingmoney - money_input;
 					int new_checkingmoney = old_checkingmoney + money_input -2;
 					String currency = getDepositCurrency(username, "Saving");
-					
+					//change and charge money 
 					DataModify.modifyMoney(GetData.createFilePath("info.txt"),username, "Saving", new_savingmoney);
 					DataModify.modifyMoney(GetData.createFilePath("info.txt"),username, "Checking", new_checkingmoney);
 					DataModify.modifyBankMoney(GetData.createFilePath("bank_money.txt"), currency, getBankMoney(currency)+2);
 					
 					String content = GetDate.currentDate() +":"+ username + " transfers " + money_input + " from saving account to checking account.";
+					//record this transaction
 					WriteData.writeData(username, content);
 					WriteData.writeTransaction(GetDate.currentDate(), content);
 					

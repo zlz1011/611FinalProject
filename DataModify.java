@@ -3,7 +3,13 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-
+/**
+ * 
+ * @author lingdean
+ * The DataModify class is used to modify the data in text files if needed. 
+ * It holds the static methods for modifying or deleting specific data in files.
+ * 
+ */
 public class DataModify {
 
 	public static void modifyMoney(String filePath, String username, String accountType, int new_money) {

@@ -3,7 +3,12 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
+/**
+ * 
+ * @author lingdean
+ * The LoanFrame is used when the user request a loan in the enrolled frame.
+ * It sets the loan as needed.
+ */
 public class LoanFrame extends JFrame implements ReadData,CheckInput{
 	
 	private String username;
@@ -97,6 +102,8 @@ public class LoanFrame extends JFrame implements ReadData,CheckInput{
 				DataModify.modifyLoan(GetData.createFilePath("info.txt"), username, money);
 				DataModify.modifyLoanCurrency(GetData.createFilePath("info.txt"), username, currency);
 				DataModify.modifyLoanDate(GetData.createFilePath("info.txt"), username, GetDate.currentDate());
+				
+				DataModify.modifyBankMoney(GetData.createFilePath("bank_money.txt"), currency, getBankMoney(currency)-money);
 				
 				String content = GetDate.currentDate() +":"+ username + " receives " + money + currency+" loans from our bank.";
 				WriteData.writeData(username, content);

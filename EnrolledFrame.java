@@ -7,7 +7,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.*;
-
+/**
+ * 
+ * @author lingdean
+ * EnrolledFrame is used when the user enrolled his/her account. It will show 8 buttons with different function.
+ */
 public class EnrolledFrame extends JFrame implements ReadData{
 
 	private String user_name;
@@ -206,6 +210,7 @@ public class EnrolledFrame extends JFrame implements ReadData{
 		}
 	}
 	
+	//update the loan if the user has loan
 	public void updateLoan(String username) {
 		long month = FindTimeDiffer.findDateDiffer(getLoanDate(user_name),GetDate.currentDate())/30;
 		int old_loan = getLoan(user_name);

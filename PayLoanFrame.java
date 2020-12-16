@@ -4,6 +4,13 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+/**
+ * 
+ * @author lingdean
+ * PayLoanFrame is used when the user pay his/her loan.
+ * It asks the user to enter the payment.
+ */
+
 public class PayLoanFrame extends JFrame implements ReadData, CheckInput{
 		
 	private String username;
@@ -119,9 +126,11 @@ public class PayLoanFrame extends JFrame implements ReadData, CheckInput{
 					int new_loan = old_loan - money_input;
 					int old_money = getDepositMoney(account_type,username);
 					int new_money = old_money - money_input;
+					//modify the loan of the user
 					DataModify.modifyLoan(GetData.createFilePath("info.txt"), username, new_loan);
 					DataModify.modifyMoney(GetData.createFilePath("info.txt"), username, account_type, new_money);
 					String content = GetDate.currentDate() +":"+ username + " pays " + money_input + " USD loans to the bank.";
+					//recored this transaction
 					WriteData.writeData(username, content);
 					WriteData.writeTransaction(GetDate.currentDate(), content);
 					setIfsuccess(true);

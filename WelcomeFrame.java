@@ -4,7 +4,12 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 import javax.swing.*;
-
+/**
+ * 
+ * @author lingdean
+ * WelcomeFrame is the main frame and used when start the program.
+ * If has the signin panel to let the user signin.
+ */
 public class WelcomeFrame extends JFrame {
 
 	private JTextField userText;

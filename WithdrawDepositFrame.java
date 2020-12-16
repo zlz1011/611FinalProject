@@ -5,7 +5,11 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 import javax.swing.*;
-
+/**
+ * 
+ * @author lingdean
+ * WithdrawDepositFrame is used when a user wants to withdraw or deposit money.
+ */
 public class WithdrawDepositFrame extends JFrame implements ReadData, CheckInput{
 
 	private String username;
