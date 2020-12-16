@@ -4,7 +4,7 @@ import javax.swing.*;
 /**
  * 
  * @author lingdean
- *	The TransactionFrame
+ * The TransactionFrame is used to show all recent 15 transactions of a user did.
  */
 public class TransactionFrame extends JFrame{
 
