@@ -222,4 +222,48 @@ public class DataModify {
         }
 	}
 	
+	public static void DeleteUser(String filePath, String username) {
+	       
+		File file= new File(filePath);
+       
+		String content = "";
+		BufferedReader reader=null;
+        FileWriter writer=null;
+         
+        try
+        {
+        	reader = new BufferedReader(new FileReader(file));
+            String line = reader.readLine();
+             
+            while (line != null) 
+            {
+            	String [] data = line.split(" ");
+            	if(data[0].equals(username)) {
+            		line = reader.readLine();
+            		continue;
+            	}
+            	String new_line = String.join(" ", data);
+                content = content + new_line + System.lineSeparator();
+                line = reader.readLine();
+            }
+ 
+           writer = new FileWriter(file);
+           writer.write(content);
+            
+        }catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+        finally {
+            try{
+                reader.close();  
+                writer.close();
+            } 
+            catch (IOException e) 
+            {
+                e.printStackTrace();
+            }
+        }
+    }
+	
 }

@@ -15,6 +15,7 @@ public class WelcomeFrame extends JFrame {
 	private JButton SignUpButton;
 	private JButton exitButton;
 	private JButton managerButton;
+	private JButton closeAccountButton;
 	private boolean ifenrolled;
 
 	public WelcomeFrame() {
@@ -28,6 +29,7 @@ public class WelcomeFrame extends JFrame {
 		this.setSignOnButton(new JButton("Sign Up"));
 		this.setExitButton(new JButton("Exit"));
 		this.setManagerButton(new JButton("Manager Click Here"));
+		this.setCloseAccountButton(new JButton("Close Your Account"));
 		this.setSignInPanel(new JPanel());
 		this.setSignUpPanel(new JPanel());
 		this.setIfenrolled(false);
@@ -42,11 +44,13 @@ public class WelcomeFrame extends JFrame {
 		this.add(this.SignInPanel);
 		this.add(this.SignUpPanel);
 		this.add(this.managerButton);
+		this.add(this.closeAccountButton);
 		// add listenners
 		this.SignInButton.addActionListener(new SignInListener());
 		this.SignUpButton.addActionListener(new SignOnListener());
 		this.exitButton.addActionListener(new ExitListener());
 		this.managerButton.addActionListener(new ManagerListener());
+		this.closeAccountButton.addActionListener(new CloseListener());
 	}
 
 	public JPanel getSignInPanel() {
@@ -137,7 +141,7 @@ public class WelcomeFrame extends JFrame {
 
 	public void setManagerButton(JButton managerButton) {
 		this.managerButton = managerButton;
-		this.managerButton.setBounds(20, 20, 200, 40);;
+		this.managerButton.setBounds(20, 20, 200, 40);
 	}
 
 	public boolean isIfenrolled() {
@@ -151,6 +155,17 @@ public class WelcomeFrame extends JFrame {
 		}
 	}
 	
+	public JButton getCloseAccountButton() {
+		return closeAccountButton;
+	}
+
+	public void setCloseAccountButton(JButton closeAccountButton) {
+		this.closeAccountButton = closeAccountButton;
+		this.closeAccountButton.setBounds(20, 80, 200, 40);
+	}
+
+
+
 	class SignInListener implements ActionListener {
 
 		@Override
@@ -185,6 +200,15 @@ public class WelcomeFrame extends JFrame {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			ManagerLoginFrame manager_frame = new ManagerLoginFrame();
+		}
+		
+	}
+	
+	class CloseListener implements ActionListener{
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			CloseAccountFrame close = new CloseAccountFrame();
 		}
 		
 	}
