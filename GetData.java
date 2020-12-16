@@ -1,6 +1,9 @@
+/**
+ * get data in given txt in data folder, help create the file path
+ */
+
 import java.io.*;
 import java.util.ArrayList;
-// it is used for reading txt
 public class GetData {
     public static ArrayList<String[]> read(String filepath,boolean headline){
         ArrayList<String[]> result = new ArrayList<>();

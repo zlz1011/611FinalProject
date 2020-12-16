@@ -1,3 +1,7 @@
+/**
+ * create a frame which manager can check the list of managers and add or delete a manager, however a manager can not delete himself/herself
+ */
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;

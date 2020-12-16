@@ -1,3 +1,8 @@
+/**
+ * create a frame which manager can check all customers with brief information or check a specific customer by the id
+ * and get all transaction recording of the customer
+ */
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
