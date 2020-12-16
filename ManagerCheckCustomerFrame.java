@@ -40,7 +40,7 @@ public class ManagerCheckCustomerFrame extends JFrame {
 
         this.add("North", topPanel);
         this.add("Center", jsp);
-        this.setSize(800, 400);
+        this.setSize(850, 400);
 
         this.addWindowListener(new WindowAdapter() {
             @Override
@@ -55,6 +55,7 @@ public class ManagerCheckCustomerFrame extends JFrame {
     class searchListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
             ManagerCheckCustomerFrame.this.resultField.setText("");
+
             String filename=ManagerCheckCustomerFrame.this.customerIDField.getText();
             File file = new File(GetData.createFilePath("info_"+filename+".txt"));
             if (!file.exists()){
@@ -62,6 +63,25 @@ public class ManagerCheckCustomerFrame extends JFrame {
                 tem.showMessageDialog(null,"no such customer!");
                 return;
             }
+
+            File file1 = new File(GetData.createFilePath("info.txt"));
+            if (!file1.exists()){
+                JOptionPane tem=new JOptionPane();
+                tem.showMessageDialog(null,"no info.txt");
+                return;
+            }
+            ArrayList<String[]> resultlist1 =GetData.read(GetData.createFilePath("info.txt"),false);
+            String headline="userID\tname\tpassword\tsavings\tcurrency\tcheckings\tcurrency\tloan\tcurrency\tdate";
+            ManagerCheckCustomerFrame.this.resultField.append(headline+"\n");
+            for(String[] ins:resultlist1){
+                if(ins[0].equals(ManagerCheckCustomerFrame.this.customerIDField.getText())){
+                    for(String s:ins){
+                        ManagerCheckCustomerFrame.this.resultField.append(s+"\t");
+                    }
+                    ManagerCheckCustomerFrame.this.resultField.append("\n\n");
+                }
+            }
+
             ArrayList<String> resultlist =GetData.readlines(GetData.createFilePath("info_"+filename+".txt"),false);
             for(String ins:resultlist){
                 ManagerCheckCustomerFrame.this.resultField.append(ins+"\n");
@@ -78,8 +98,8 @@ public class ManagerCheckCustomerFrame extends JFrame {
                 return;
             }
             ArrayList<String[]> resultlist =GetData.read(GetData.createFilePath("info.txt"),false);
-            String headline="userID\tname\tpassword\tsavings\tcurrency\tcheckings\tcurrency\tloan\tcurrency";
-            ManagerCheckCustomerFrame.this.resultField.append(headline+"\n\n");
+            String headline="userID\tname\tpassword\tsavings\tcurrency\tcheckings\tcurrency\tloan\tcurrency\tdate";
+            ManagerCheckCustomerFrame.this.resultField.append(headline+"\n");
             for(String[] ins:resultlist){
                 for(String s:ins){
                     ManagerCheckCustomerFrame.this.resultField.append(s+"\t");

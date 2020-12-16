@@ -8,7 +8,7 @@ import javax.swing.*;
 
 public class ManagerSelectOperationFrame extends JFrame {
     private String managerID;
-    private JButton checkCustomerButton,checkTransButton,memberButton,stockButton,nextDayButton,logOutButton;
+    private JButton checkCustomerButton,checkTransButton,memberButton,stockButton,nextDayButton,logOutButton,bankMoneyButton,exchangeRateButton;
     private JLabel dateLabel;
     public ManagerSelectOperationFrame(String managerID){
         this.managerID=managerID;
@@ -28,13 +28,15 @@ public class ManagerSelectOperationFrame extends JFrame {
 
         this.checkCustomerButton=new JButton("Check a Customer");
         this.add(this.checkCustomerButton);
-        this.add(new JPanel());
+        this.bankMoneyButton=new JButton("total money of bank");
+        this.add(this.bankMoneyButton);
         this.checkTransButton=new JButton("Get Daily Report");
         this.add(this.checkTransButton);
 
         this.memberButton=new JButton("Add/Delete managers");
         this.add(this.memberButton);
-        this.add(new JPanel());
+        this.exchangeRateButton=new JButton("set exchange rate");
+        this.add(this.exchangeRateButton);
         this.stockButton=new JButton("Stock Market");
         this.add(this.stockButton);
 
@@ -50,7 +52,21 @@ public class ManagerSelectOperationFrame extends JFrame {
         this.stockButton.addActionListener(new stockListener());
         this.nextDayButton.addActionListener(new nextDayListener());
         this.logOutButton.addActionListener(new logOutListener());
+        this.bankMoneyButton.addActionListener(new bankMoneyListener());
+        this.exchangeRateButton.addActionListener(new exchangeRateListener());
         this.setVisible(true);
+    }
+    class bankMoneyListener implements ActionListener {
+        public void actionPerformed(ActionEvent e){
+            ManagerSelectOperationFrame.this.setEnabled(false);
+            ManagerBankMoneyFrame tem=new ManagerBankMoneyFrame(ManagerSelectOperationFrame.this);
+        }
+    }
+    class exchangeRateListener implements ActionListener {
+        public void actionPerformed(ActionEvent e){
+            ManagerSelectOperationFrame.this.setEnabled(false);
+            ManagerExchangeRateFrame tem=new ManagerExchangeRateFrame(ManagerSelectOperationFrame.this);
+        }
     }
     class checkCustomerListener implements ActionListener {
         public void actionPerformed(ActionEvent e){
