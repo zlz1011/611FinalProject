@@ -1,0 +1,4 @@
+managerID passward
+2 123456
+admin 123456
+1 123456
