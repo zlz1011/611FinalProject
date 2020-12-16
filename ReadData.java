@@ -59,4 +59,47 @@ public interface ReadData {
 		}
 		return money_num;
 	}
+	
+	default public String getLoanCurrency(String username) {
+		ArrayList<String []> read_data = GetData.read(GetData.createFilePath("info.txt"), false);
+		String loan_currency = "";
+		for (int i=0; i<read_data.size(); i++) {
+			String [] data = read_data.get(i);
+			for (int j=0; j<data.length; j++) {
+				if(username.equals(data[0])) {
+					loan_currency = data[8];
+				}
+			}
+		}
+		return loan_currency;
+	}
+	
+	default public String getLoanDate(String username) {
+		ArrayList<String []> read_data = GetData.read(GetData.createFilePath("info.txt"), false);
+		String date = "";
+		for (int i=0; i<read_data.size(); i++) {
+			String [] data = read_data.get(i);
+			for (int j=0; j<data.length; j++) {
+				if(username.equals(data[0])) {
+					date = data[9];
+				}
+			}
+		}
+		return date;
+	}
+	
+	
+	default public int getBankMoney(String currency) {
+		ArrayList<String []> read_data = GetData.read(GetData.createFilePath("bank_money.txt"), false);
+		int bank_money = 0;
+		for (int i=0; i<read_data.size(); i++) {
+			String [] data = read_data.get(i);
+			for (int j=0; j<data.length; j++) {
+				if(currency.equals(data[1])) {
+					bank_money = Integer.parseInt(data[0]);
+				}
+			}
+		}
+		return bank_money;
+	}
 }

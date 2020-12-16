@@ -70,7 +70,7 @@ public class LoanFrame extends JFrame implements ReadData,CheckInput{
 			this.dispose();
 		}
 	}
-	
+
 	class LoanButtonListener implements ActionListener{
 
 		@Override
@@ -81,17 +81,28 @@ public class LoanFrame extends JFrame implements ReadData,CheckInput{
 			if (checkInt(money_input)==false) {
 				JOptionPane.showMessageDialog(warning, "You must enter a positive integer!");
 			}
-			else if (!getDepositCurrency("Saving",username).equals("USD") &&
-					!getDepositCurrency("Checking",username).equals("USD")) {
-				JOptionPane.showMessageDialog(warning, "You must have a USD account to request a loan!");
+			else if (getLoan(username)>0) {
+				JOptionPane.showMessageDialog(warning, "You must pay all your loan before request a new loan!");
 			}
 			else {
 				int money = Integer.parseInt(money_input);
+				String currency = "USD";
+			
+				if(getDepositMoney("Saving",username)>0) {
+					currency = getDepositCurrency("Saving",username);
+				}
+				else {
+					currency = getDepositCurrency("Checking",username);
+				}
 				DataModify.modifyLoan(GetData.createFilePath("info.txt"), username, money);
-				String content = GetDate.currentDate() +":"+ username + " receives " + money + " USD loans from our bank.";
+				DataModify.modifyLoanCurrency(GetData.createFilePath("info.txt"), username, currency);
+				DataModify.modifyLoanDate(GetData.createFilePath("info.txt"), username, GetDate.currentDate());
+				
+				String content = GetDate.currentDate() +":"+ username + " receives " + money + currency+" loans from our bank.";
 				WriteData.writeData(username, content);
 				WriteData.writeTransaction(GetDate.currentDate(), content);
-				String remind = "You have successfully took out loan: " + money;
+				
+				String remind = "You have successfully took out loan: " + money ;
 				JOptionPane.showMessageDialog(warning, remind);
 				setExit(true);
 			}

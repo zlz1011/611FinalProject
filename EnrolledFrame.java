@@ -8,7 +8,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.*;
 
-public class EnrolledFrame extends JFrame{
+public class EnrolledFrame extends JFrame implements ReadData{
 
 	private String user_name;
 	private JPanel [][] panels;
@@ -32,6 +32,7 @@ public class EnrolledFrame extends JFrame{
 		this.setUser_name(user_name);
 		this.setIfexit(false);
 		this.initcomp();
+		this.updateLoan(user_name);
 	}
 	
 	public void initcomp() {
@@ -203,6 +204,13 @@ public class EnrolledFrame extends JFrame{
 		if(this.ifexit==true) {
 			this.dispose();
 		}
+	}
+	
+	public void updateLoan(String username) {
+		long month = FindTimeDiffer.findDateDiffer(getLoanDate(user_name),GetDate.currentDate())/30;
+		int old_loan = getLoan(user_name);
+		int new_loan =(int) (month*1.05*old_loan);
+		DataModify.modifyLoan(GetData.createFilePath("info.txt"), user_name, new_loan);
 	}
 
 	class CheckingListener implements ActionListener{

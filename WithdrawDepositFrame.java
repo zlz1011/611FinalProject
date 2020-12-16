@@ -116,11 +116,16 @@ public class WithdrawDepositFrame extends JFrame implements ReadData, CheckInput
 							JOptionPane.showMessageDialog(warning, "You cannot withdraw over your current account balance!");
 						}
 						else {
-							int new_money = old_money - money_input;
+							int new_money = old_money - money_input - 2;
+							String currency = getDepositCurrency("Saving",username);
+							
 							DataModify.modifyMoney( GetData.createFilePath("info.txt"),username, "Saving", new_money);
 							String content = GetDate.currentDate() +":"+ username + " withdraws " + money_input + " from saving account.";
 							WriteData.writeData(username, content);
 							WriteData.writeTransaction(GetDate.currentDate(), content);
+							
+							DataModify.modifyBankMoney(GetData.createFilePath("bank_money.txt"), currency, getBankMoney(currency)+2);
+							JOptionPane.showMessageDialog(warning, "You will be charged 2 for every withdraw!");
 							setIfsuccess(true);
 						}
 					}
@@ -130,11 +135,16 @@ public class WithdrawDepositFrame extends JFrame implements ReadData, CheckInput
 							JOptionPane.showMessageDialog(warning, "You cannot withdraw over your current account balance!");
 						}
 						else {
-							int new_money = old_money - money_input;
+							int new_money = old_money - money_input - 2;
+							String currency = getDepositCurrency("Checking",username);
+							
 							DataModify.modifyMoney( GetData.createFilePath("info.txt"),username, "Checking", new_money);
 							String content = GetDate.currentDate() +":"+ username + " withdraws " + money_input + " from checking account.";
 							WriteData.writeData(username, content);
 							WriteData.writeTransaction(GetDate.currentDate(), content);
+							
+							DataModify.modifyBankMoney(GetData.createFilePath("bank_money.txt"), currency, getBankMoney(currency)+2);
+							JOptionPane.showMessageDialog(warning, "You will be charged 2 for every withdraw!");
 							setIfsuccess(true);
 						}
 					}

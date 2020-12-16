@@ -93,13 +93,19 @@ public class TransferCheckingFrame extends JFrame implements ReadData,CheckInput
 				}
 				else {
 					int new_savingmoney = old_savingmoney - money_input;
-					int new_checkingmoney = old_checkingmoney + money_input;
+					int new_checkingmoney = old_checkingmoney + money_input -2;
+					String currency = getDepositCurrency(username, "Saving");
+					
 					DataModify.modifyMoney(GetData.createFilePath("info.txt"),username, "Saving", new_savingmoney);
 					DataModify.modifyMoney(GetData.createFilePath("info.txt"),username, "Checking", new_checkingmoney);
+					DataModify.modifyBankMoney(GetData.createFilePath("bank_money.txt"), currency, getBankMoney(currency)+2);
+					
 					String content = GetDate.currentDate() +":"+ username + " transfers " + money_input + " from saving account to checking account.";
 					WriteData.writeData(username, content);
 					WriteData.writeTransaction(GetDate.currentDate(), content);
+					
 					setIfsuccess(true);
+					JOptionPane.showMessageDialog(warning, "You will be charged 2 for transfering money from saving to checking!");
 				}
 			}
 			

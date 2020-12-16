@@ -16,7 +16,7 @@ import java.util.ArrayList;
 
 import javax.swing.*;
 
-public class SignOnFrame extends JFrame{
+public class SignOnFrame extends JFrame implements ReadData, CheckInput{
 	
 	private JTextField personName;
 	private JTextField username;
@@ -221,6 +221,7 @@ public class SignOnFrame extends JFrame{
 			String checking_currency = Checkingcurrency.getItemAt(Checkingcurrency.getSelectedIndex());
 			
 			JFrame warning = new JFrame();
+			
 			if(name.contains(" ")) {
 				JOptionPane.showMessageDialog(warning, "Your name cannot have any space!");
 			}
@@ -250,15 +251,18 @@ public class SignOnFrame extends JFrame{
 				String allinfo;
 				if (Saving.isSelected() && !Checking.isSelected()) {
 					allinfo = user_name + " " + name + " "+ pass + " "+ saving_deposit+ " " + 
-							saving_currency + " " + "0" + " "+ checking_currency + " " +"null" +" \n";
+							saving_currency + " " + "0" + " "+ checking_currency + " " +"null" +" "
+							+ "USD" +" "+ GetDate.currentDate()+"\n";
 				}
 				else if (!Saving.isSelected() && Checking.isSelected()) {
 					allinfo =user_name + " " + name + " "+ pass + " "+ "0"+ " " + 
-							saving_currency + " " + checking_deposit + " "+ checking_currency + " " +"null" +" \n";
+							saving_currency + " " + checking_deposit + " "+ checking_currency + " " +"null" + " "
+							+ "USD" +" "+ GetDate.currentDate()+"\n";
 				}
 				else {
 					allinfo = user_name + " " + name + " "+ pass + " "+ saving_deposit+ " " + 
-							saving_currency + " " + checking_deposit + " "+ checking_currency + " " +"null" +" \n";
+							saving_currency + " " + checking_deposit + " "+ checking_currency + " " +"null" + " "
+							+ "USD" +" "+ GetDate.currentDate()+"\n";
 				}
 				try {
 					FileWriter writer1 = new FileWriter(BankSystem.getNpPath(),true);
@@ -268,8 +272,19 @@ public class SignOnFrame extends JFrame{
 					writer2.write(allinfo);
 					writer2.close();
 					setIfsigned(true);
-					JOptionPane.showMessageDialog(warning, "You have successfully opened a new account!");
-					
+					JOptionPane.showMessageDialog(warning, "You have successfully opened a new account! You will be charged 3 for opening a new account");
+					if (getDepositMoney("Saving",user_name)>0) {
+						int money =  getDepositMoney("Saving",user_name);
+						String currency = getDepositCurrency("Saving",user_name);
+						DataModify.modifyMoney(GetData.createFilePath("info.txt"), user_name, "Saving", money-3);
+						DataModify.modifyBankMoney(GetData.createFilePath("bank_money.txt"), currency, getBankMoney(currency)+3);
+					}
+					else {
+						int money =  getDepositMoney("Checking",user_name);
+						String currency = getDepositCurrency("Checking",user_name);
+						DataModify.modifyMoney(GetData.createFilePath("info.txt"), user_name, "Checking", money-3);
+						DataModify.modifyBankMoney(GetData.createFilePath("bank_money.txt"), currency, getBankMoney(currency)+3);
+					}
 				} catch (Exception e1) {
 					// TODO Auto-generated catch block
 					JOptionPane.showMessageDialog(warning, "Erro with file system!");

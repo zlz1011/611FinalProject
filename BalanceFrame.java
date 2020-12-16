@@ -81,7 +81,7 @@ public class BalanceFrame extends JFrame implements ReadData{
 		loan_money.setFont(new Font("Verdana",Font.PLAIN,22));
 		this.panels[4][2].add(loan_money);
 		
-		JLabel loan_currency = new JLabel("USD",SwingConstants.LEFT);
+		JLabel loan_currency = new JLabel(this.getLoanCurrency(this.username),SwingConstants.LEFT);
 		loan_currency.setFont(new Font("Verdana",Font.PLAIN,22));
 		this.panels[4][3].add(loan_currency);
 	}

@@ -25,7 +25,9 @@ public class PayLoanFrame extends JFrame implements ReadData, CheckInput{
 		String [] accountName = new String[] {"Saving","Checking"};
 		this.setAccount(new JComboBox<String>(accountName));
 		
-		JLabel message = new JLabel("Your current loan(USD):",SwingConstants.RIGHT);
+		String loan_currency = this.getLoanCurrency(this.username);
+		String content = "Your current loan("+loan_currency+"):";
+		JLabel message = new JLabel(content,SwingConstants.RIGHT);
 		JLabel loan_message = new JLabel(String.valueOf(this.getLoan(this.username)),SwingConstants.CENTER);
 		this.add(message);
 		this.add(loan_message);
@@ -96,9 +98,10 @@ public class PayLoanFrame extends JFrame implements ReadData, CheckInput{
 			JFrame warning = new JFrame();
 			String account_type = account.getItemAt(account.getSelectedIndex());
 			String currency = getDepositCurrency(account_type,username);
+			String loan_currency = getLoanCurrency(username);
 			
-			if (!currency.equals("USD")) {
-				JOptionPane.showMessageDialog(warning, "You must choose your USD account!");
+			if (!currency.equals(loan_currency)) {
+				JOptionPane.showMessageDialog(warning, "You must choose your corresponding currency account!");
 			}
 			else if (checkInt(money.getText())==false) {
 				JOptionPane.showMessageDialog(warning, "You must enter a positive integer!");
