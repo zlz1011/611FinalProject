@@ -214,7 +214,8 @@ public class EnrolledFrame extends JFrame implements ReadData{
 	public void updateLoan(String username) {
 		long month = FindTimeDiffer.findDateDiffer(getLoanDate(user_name),GetDate.currentDate())/30;
 		int old_loan = getLoan(user_name);
-		int new_loan =(int) (month*1.05*old_loan);
+	
+		int new_loan =(int) (Math.pow(1.05, month)*old_loan);
 		DataModify.modifyLoan(GetData.createFilePath("info.txt"), user_name, new_loan);
 	}
 
