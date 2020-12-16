@@ -1,3 +1,7 @@
+/**
+ * create a frame which manager can modify the exchange rate of a currency to USD
+ */
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

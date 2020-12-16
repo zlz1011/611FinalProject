@@ -1,3 +1,7 @@
+/**
+ * create a frame which manager can get a report of today or a specific day
+ */
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;

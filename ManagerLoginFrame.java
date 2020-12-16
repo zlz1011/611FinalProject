@@ -1,3 +1,7 @@
+/**
+ * Create a frame allows manager to login
+ */
+
 import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;

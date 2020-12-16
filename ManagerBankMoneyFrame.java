@@ -1,3 +1,7 @@
+/**
+ * create a frame which manager can get and change the money of the bank of every currency
+ */
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

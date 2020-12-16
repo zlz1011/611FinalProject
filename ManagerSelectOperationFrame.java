@@ -1,9 +1,10 @@
-import java.awt.Color;
+/**
+ * once manager login, create a frame contains buttons for manager to chose an operation from
+ */
+
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
-import java.util.ArrayList;
 import javax.swing.*;
 
 public class ManagerSelectOperationFrame extends JFrame {
