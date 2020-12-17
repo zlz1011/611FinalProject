@@ -8,6 +8,7 @@ Chuyang Zhou	U23879399  cyzhou@bu.edu
 
 Compilation and execution instructions:
 Our projects has 26 class files, 2 interface files and one folder named "Data".
+You need to create an empty folder named "Data" first!!!Or you could not run the program.
 
 javac main.java
 java main
